@@ -24,6 +24,11 @@
 .DS_Store
 *.pem
 
+# database dumps (contain PII — never commit)
+*.sql
+*.sql.gz
+*.dump
+
 # debug
 npm-debug.log*
 yarn-debug.log*
@@ -39,3 +44,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# migration scratch (may contain sample contact data)
+migration/_report.txt

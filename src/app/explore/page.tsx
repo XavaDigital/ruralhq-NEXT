@@ -5,8 +5,8 @@
 
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getListings } from "@/lib/data";
-import type { ListingType, Region } from "@/lib/types";
+import { getListings, getTopCategories, getTopRegions } from "@/lib/data";
+import type { ListingType } from "@/lib/types";
 import { ExploreFilters } from "@/components/ExploreFilters";
 import { ListingCard } from "@/components/ListingCard";
 import { AdSlot } from "@/components/AdSlot";
@@ -33,11 +33,13 @@ export default async function ExplorePage({
   const sp = await searchParams;
   const { items, total } = await getListings({
     type: sp.type as ListingType | undefined,
-    region: sp.region as Region | undefined,
+    region: sp.region,
     category: sp.category,
     search: sp.q,
     page: sp.page ? Number(sp.page) : 1,
   });
+  const regions = getTopRegions();
+  const categories = getTopCategories();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -46,7 +48,7 @@ export default async function ExplorePage({
 
       <div className="mt-6">
         <Suspense fallback={null}>
-          <ExploreFilters />
+          <ExploreFilters regions={regions} categories={categories} />
         </Suspense>
       </div>
 

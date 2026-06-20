@@ -1,104 +1,22 @@
 // Data access layer.
 //
-// This is the ONLY module routes/components should import for content. Today it
-// returns in-memory mock data so the skeleton renders end-to-end without a DB.
-// When the Supabase migration lands, swap the bodies of these functions for SQL
-// queries (see src/lib/supabase.ts) — the signatures stay the same, so nothing
-// downstream changes.
+// Reads real seed data exported from the live WordPress DB by migration/etl.py
+// (a representative SAMPLE of listings + the full region/category taxonomies).
+// This is the ONLY module routes/components import for content. When the
+// Supabase migration lands, swap these function bodies for SQL queries — the
+// signatures stay the same.
 
-import type { Article, Listing, ListingType, Region } from "./types";
+import listingsJson from "@/data/listings.json";
+import regionsJson from "@/data/regions.json";
+import categoriesJson from "@/data/categories.json";
+import type { Article, Listing, ListingType, Term } from "./types";
 
-// ---------------------------------------------------------------------------
-// Mock seed data. Slugs match real live-site URLs so routes resolve to the same
-// paths we must 301-preserve (e.g. /businesses/feed-co).
-// ---------------------------------------------------------------------------
+const LISTINGS = listingsJson as unknown as Listing[];
+const REGIONS = regionsJson as Term[];
+const CATEGORIES = categoriesJson as Term[];
 
-const now = "2025-01-30T00:00:00.000Z";
-
-const LISTINGS: Listing[] = [
-  {
-    id: "1",
-    type: "businesses",
-    slug: "feed-co",
-    title: "Feed Co",
-    excerpt: "Stock feed and nutrition supplier serving Canterbury farms.",
-    description:
-      "<p>Feed Co supplies quality stock feed and nutrition advice to farmers across the South Island.</p>",
-    region: "Canterbury",
-    town: "Ashburton",
-    categories: ["farm-supplies-services", "livestock-pets"],
-    rating: 4.8,
-    reviewCount: 12,
-    phone: "03 555 0100",
-    website: "https://example.com",
-    status: "approved",
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "2",
-    type: "businesses",
-    slug: "farmgard",
-    title: "Farmgard",
-    excerpt: "General and electric fencing specialists.",
-    description: "<p>Farmgard installs and services rural fencing nationwide.</p>",
-    region: "Waikato",
-    town: "Hamilton",
-    categories: ["general-electric-fencing", "farm-supplies-services"],
-    rating: 4.6,
-    reviewCount: 8,
-    status: "approved",
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "3",
-    type: "businesses",
-    slug: "the-mower-shop-ashburton",
-    title: "The Mower Shop Ashburton",
-    excerpt: "Sales and service of ride-on mowers and machinery.",
-    description: "<p>Your local machinery and implements specialist.</p>",
-    region: "Canterbury",
-    town: "Ashburton",
-    categories: ["machinery-implements", "vehicles-machines"],
-    rating: 4.9,
-    reviewCount: 21,
-    status: "approved",
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "4",
-    type: "events",
-    slug: "canterbury-aamp-p-show-2025",
-    title: "Canterbury A&P Show 2025",
-    excerpt: "The South Island's premier agricultural show.",
-    description: "<p>Three days of livestock, machinery and rural community.</p>",
-    region: "Canterbury",
-    town: "Christchurch",
-    categories: ["events"],
-    startsAt: "2025-11-12T09:00:00.000Z",
-    endsAt: "2025-11-14T17:00:00.000Z",
-    status: "approved",
-    createdAt: now,
-    updatedAt: now,
-  },
-  {
-    id: "5",
-    type: "promotions",
-    slug: "autumn-fencing-deal",
-    title: "Autumn Fencing Deal — 15% off",
-    excerpt: "15% off all electric fencing units this autumn.",
-    description: "<p>Limited-time discount on fencing energizers.</p>",
-    region: "Waikato",
-    categories: ["general-electric-fencing"],
-    expiresAt: "2025-05-31T00:00:00.000Z",
-    status: "approved",
-    createdAt: now,
-    updatedAt: now,
-  },
-];
-
+// Articles weren't migrated (the newsfeed lapsed in 2019). Seed a couple so the
+// "Read" section renders; real articles will come from the AI news pipeline.
 const ARTICLES: Article[] = [
   {
     slug: "improving-the-value-of-strong-wool",
@@ -109,31 +27,56 @@ const ARTICLES: Article[] = [
     publishedAt: "2019-07-11T23:18:53.000Z",
     updatedAt: "2019-07-11T23:18:53.000Z",
   },
-  {
-    slug: "ai-is-transforming-agriculture",
-    title: "AI is Transforming Agriculture",
-    excerpt: "From pasture sensors to flock monitoring, AI is reaching the farm.",
-    body: "<p>Artificial intelligence is steadily entering rural NZ…</p>",
-    publishedAt: "2019-07-08T06:54:55.000Z",
-    updatedAt: "2019-07-08T06:54:55.000Z",
-  },
 ];
 
 // ---------------------------------------------------------------------------
-// Query API — keep these signatures stable across the DB migration.
+// Taxonomy helpers
+// ---------------------------------------------------------------------------
+
+export function getRegions(): Term[] {
+  return REGIONS;
+}
+
+export function getTopRegions(): Term[] {
+  return REGIONS.filter((r) => !r.parentSlug);
+}
+
+export function getTopCategories(): Term[] {
+  return CATEGORIES.filter((c) => !c.parentSlug);
+}
+
+const REGION_NAME = new Map(REGIONS.map((r) => [r.slug, r.name]));
+const CATEGORY_NAME = new Map(CATEGORIES.map((c) => [c.slug, c.name]));
+
+export function regionName(slug?: string): string | undefined {
+  return slug ? REGION_NAME.get(slug) : undefined;
+}
+
+export function categoryName(slug?: string): string | undefined {
+  return slug ? CATEGORY_NAME.get(slug) : undefined;
+}
+
+// Slugs of a region's descendants (so filtering by a top region includes its
+// districts).
+function regionWithDescendants(slug: string): Set<string> {
+  const out = new Set([slug]);
+  for (const r of REGIONS) {
+    if (r.parentSlug && out.has(r.parentSlug)) out.add(r.slug);
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// Listing query API
 // ---------------------------------------------------------------------------
 
 export interface ListingQuery {
   type?: ListingType;
-  region?: Region;
-  category?: string;
+  region?: string; // region slug
+  category?: string; // category slug
   search?: string;
   page?: number;
   perPage?: number;
-}
-
-function isApproved(l: Listing) {
-  return l.status === "approved";
 }
 
 export async function getListings(query: ListingQuery = {}): Promise<{
@@ -141,16 +84,20 @@ export async function getListings(query: ListingQuery = {}): Promise<{
   total: number;
 }> {
   const { type, region, category, search, page = 1, perPage = 24 } = query;
-  let items = LISTINGS.filter(isApproved);
+  let items = LISTINGS;
 
   if (type) items = items.filter((l) => l.type === type);
-  if (region) items = items.filter((l) => l.region === region);
+  if (region) {
+    const allowed = regionWithDescendants(region);
+    items = items.filter((l) => l.regionSlug && allowed.has(l.regionSlug));
+  }
   if (category) items = items.filter((l) => l.categories.includes(category));
   if (search) {
     const q = search.toLowerCase();
     items = items.filter(
       (l) =>
         l.title.toLowerCase().includes(q) ||
+        (l.tagline ?? "").toLowerCase().includes(q) ||
         l.excerpt.toLowerCase().includes(q),
     );
   }
@@ -160,22 +107,23 @@ export async function getListings(query: ListingQuery = {}): Promise<{
   return { items: items.slice(start, start + perPage), total };
 }
 
-export async function getListing(
-  type: ListingType,
-  slug: string,
-): Promise<Listing | null> {
-  return (
-    LISTINGS.find((l) => l.type === type && l.slug === slug && isApproved(l)) ??
-    null
-  );
+// Both businesses and contractors share the /businesses/{slug} URL base, so the
+// detail route resolves by slug alone.
+export async function getListingBySlug(slug: string): Promise<Listing | null> {
+  return LISTINGS.find((l) => l.slug === slug) ?? null;
 }
 
-// All slugs of a type, for generateStaticParams / sitemap.
-export async function getListingSlugs(type: ListingType): Promise<string[]> {
-  return LISTINGS.filter((l) => l.type === type && isApproved(l)).map(
-    (l) => l.slug,
-  );
+export async function getAllListingSlugs(): Promise<string[]> {
+  return LISTINGS.map((l) => l.slug);
 }
+
+export async function getAllListings(): Promise<Listing[]> {
+  return LISTINGS;
+}
+
+// ---------------------------------------------------------------------------
+// Articles
+// ---------------------------------------------------------------------------
 
 export async function getArticles(): Promise<Article[]> {
   return [...ARTICLES].sort((a, b) =>

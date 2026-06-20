@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const NAV = [
   { label: "Explore", href: "/explore" },
+  { label: "Contractors", href: "/contractors" },
   { label: "Read", href: "/newsfeed" },
-  { label: "Discover", href: "/discover/featured" },
   { label: "What is RuralHQ?", href: "/about" },
 ];
 

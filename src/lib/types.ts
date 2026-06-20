@@ -1,54 +1,35 @@
-// Core domain model for RuralHQ.
+// Core domain model for RuralHQ, derived from the live WordPress data model
+// (My Listing / WP Job Manager). See migration/_report.txt for the field survey.
 //
-// In the live WordPress site every listing (business, promotion, event, job) is
-// a single `job_listing` post type from WP Job Manager, separated by a
-// listing-type taxonomy. We mirror that here as one `Listing` shape
-// discriminated by `type`, which keeps the migration a near 1:1 mapping.
+// Two directory post types are carried forward for now:
+//   - "businesses"  ← job_listing posts whose _case27_listing_type = businesses
+//   - "contractors" ← the separate `contractors` post type
+// The other My Listing types (events/promotions/jobs/classifieds) exist but are
+// effectively empty, so they're deferred (the model can extend to them later).
 
-export type ListingType = "businesses" | "promotions" | "events" | "jobs";
+export type ListingType = "businesses" | "contractors";
 
-export const LISTING_TYPES: ListingType[] = [
-  "businesses",
-  "promotions",
-  "events",
-  "jobs",
-];
+export const LISTING_TYPES: ListingType[] = ["businesses", "contractors"];
 
-// Singular labels for UI / schema.org mapping.
 export const LISTING_TYPE_LABEL: Record<ListingType, string> = {
   businesses: "Business",
-  promotions: "Promotion",
-  events: "Event",
-  jobs: "Job",
+  contractors: "Contractor",
 };
-
-// The 16 NZ regions used as the primary location facet (matches the live site).
-export const REGIONS = [
-  "Northland",
-  "Auckland",
-  "Waikato",
-  "Bay of Plenty",
-  "Gisborne",
-  "Hawke's Bay",
-  "Taranaki",
-  "Manawatu-Whanganui",
-  "Wellington",
-  "Tasman",
-  "Nelson",
-  "Marlborough",
-  "West Coast",
-  "Canterbury",
-  "Otago",
-  "Southland",
-] as const;
-
-export type Region = (typeof REGIONS)[number];
 
 export type ModerationStatus = "pending" | "approved" | "rejected" | "flagged";
 
-export interface Category {
+// A taxonomy term (region or category). Hierarchical: `parentSlug` is null for
+// top-level terms. Regions = 16 top-level + district children; categories =
+// ~249 terms several levels deep.
+export interface Term {
   slug: string;
   name: string;
+  parentSlug: string | null;
+}
+
+export interface SocialLink {
+  network: string; // Facebook, Instagram, Twitter, …
+  url: string;
 }
 
 export interface Listing {
@@ -56,23 +37,39 @@ export interface Listing {
   type: ListingType;
   slug: string;
   title: string;
+  tagline?: string;
   excerpt: string;
-  description: string; // HTML or markdown body
-  region: Region;
+  description: string; // HTML
+
+  // Location
+  address?: string; // formatted address string (_job_location)
+  regionSlug?: string; // primary region
   town?: string;
+  lat?: number;
+  lng?: number;
+
+  // Taxonomy
   categories: string[]; // category slugs
-  rating?: number; // aggregate, 0-5
-  reviewCount?: number;
-  imageUrl?: string;
+
+  // Contact
   phone?: string;
   email?: string;
   website?: string;
-  // Event-specific
-  startsAt?: string; // ISO
-  endsAt?: string;
-  // Promotion-specific
-  expiresAt?: string;
-  // Moderation
+  social?: SocialLink[];
+
+  // Media
+  logoUrl?: string;
+  coverUrl?: string;
+  imageUrl?: string; // primary/featured image used on cards
+  gallery?: string[];
+
+  // Signals
+  rating?: number; // _case27_average_rating, 0-5
+  reviewCount?: number;
+  featured?: boolean;
+  claimed?: boolean;
+
+  // Moderation / lifecycle
   status: ModerationStatus;
   createdAt: string;
   updatedAt: string;
@@ -86,6 +83,5 @@ export interface Article {
   imageUrl?: string;
   publishedAt: string;
   updatedAt: string;
-  // True when produced by the AI news-synopsis pipeline (for disclosure/UI).
   aiGenerated?: boolean;
 }

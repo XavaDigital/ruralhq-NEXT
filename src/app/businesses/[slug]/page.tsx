@@ -1,15 +1,16 @@
 import {
+  allListingParams,
   listingMetadata,
-  listingParams,
   renderListingPage,
 } from "@/lib/listing-route";
 
-const TYPE = "businesses" as const;
+// Single detail route for both businesses and contractors (shared /businesses/
+// base, matching the live site).
+export const generateStaticParams = allListingParams;
+export const generateMetadata = listingMetadata;
 
-export const generateStaticParams = () => listingParams(TYPE);
-export const generateMetadata = (props: { params: Promise<{ slug: string }> }) =>
-  listingMetadata(TYPE, props);
-
-export default async function Page(props: { params: Promise<{ slug: string }> }) {
-  return renderListingPage(TYPE, props);
+export default async function Page(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  return renderListingPage(props);
 }

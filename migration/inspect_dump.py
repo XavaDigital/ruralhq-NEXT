@@ -17,6 +17,9 @@ from collections import Counter, defaultdict
 DUMP = sys.argv[1] if len(sys.argv) > 1 else "pbyacgvpat.sql"
 PREFIX = "wpnd_"  # live table prefix
 
+# mysqldump backslash escape sequences -> real characters.
+_ESCAPES = {"n": "\n", "r": "\r", "t": "\t", "0": "\0", "b": "\b", "Z": "\x1a"}
+
 
 def iter_rows(path, table):
     """Yield each row (list of str/None) for `table`. Handles phpMyAdmin-style
@@ -51,7 +54,7 @@ def _consume(fh, first):
         for ch in buf:
             if in_str:
                 if esc:
-                    field.append(ch)
+                    field.append(_ESCAPES.get(ch, ch))
                     esc = False
                 elif ch == "\\":
                     esc = True

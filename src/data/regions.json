@@ -1,0 +1,387 @@
+[
+{
+"slug": "northland",
+"name": "All Northland",
+"parentSlug": null
+},
+{
+"slug": "auckland",
+"name": "Auckland",
+"parentSlug": null
+},
+{
+"slug": "far-north",
+"name": "Far North",
+"parentSlug": "northland"
+},
+{
+"slug": "whangarei",
+"name": "Whangarei",
+"parentSlug": "northland"
+},
+{
+"slug": "kaipara",
+"name": "Kaipara",
+"parentSlug": "northland"
+},
+{
+"slug": "waikato",
+"name": "All Waikato",
+"parentSlug": null
+},
+{
+"slug": "hauraki",
+"name": "Hauraki",
+"parentSlug": "waikato"
+},
+{
+"slug": "thames-coromandel",
+"name": "Thames-Coromandel",
+"parentSlug": "waikato"
+},
+{
+"slug": "matamata-piako",
+"name": "Matamata-Piako",
+"parentSlug": "waikato"
+},
+{
+"slug": "hamilton",
+"name": "Hamilton",
+"parentSlug": "waikato"
+},
+{
+"slug": "otorohanga",
+"name": "Otorohanga",
+"parentSlug": "waikato"
+},
+{
+"slug": "south-waikato",
+"name": "South Waikato",
+"parentSlug": "waikato"
+},
+{
+"slug": "waipa",
+"name": "Waipa",
+"parentSlug": "waikato"
+},
+{
+"slug": "waitomo",
+"name": "Waitomo",
+"parentSlug": "waikato"
+},
+{
+"slug": "taupo",
+"name": "Taupo",
+"parentSlug": "waikato"
+},
+{
+"slug": "bay-of-plenty",
+"name": "All Bay of Plenty",
+"parentSlug": null
+},
+{
+"slug": "western-bay-of-plenty",
+"name": "Western Bay of Plenty",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "tauranga",
+"name": "Tauranga",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "kawerau",
+"name": "Kawerau",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "whakatane",
+"name": "Whakatane",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "rotorua",
+"name": "Rotorua",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "opotiki",
+"name": "Opotiki",
+"parentSlug": "bay-of-plenty"
+},
+{
+"slug": "gisborne",
+"name": "Gisborne",
+"parentSlug": null
+},
+{
+"slug": "hawkes-bay",
+"name": "All Hawke's Bay",
+"parentSlug": null
+},
+{
+"slug": "taranaki",
+"name": "All Taranaki",
+"parentSlug": null
+},
+{
+"slug": "manawatu-whanganui",
+"name": "All Manawatu-Whanganui",
+"parentSlug": null
+},
+{
+"slug": "wellington",
+"name": "All Wellington",
+"parentSlug": null
+},
+{
+"slug": "tasman",
+"name": "Tasman",
+"parentSlug": null
+},
+{
+"slug": "nelson",
+"name": "Nelson",
+"parentSlug": null
+},
+{
+"slug": "marlborough",
+"name": "Marlborough",
+"parentSlug": null
+},
+{
+"slug": "west-coast",
+"name": "All West Coast",
+"parentSlug": null
+},
+{
+"slug": "canterbury",
+"name": "All Canterbury",
+"parentSlug": null
+},
+{
+"slug": "otago",
+"name": "All Otago",
+"parentSlug": null
+},
+{
+"slug": "southland",
+"name": "All Southland",
+"parentSlug": null
+},
+{
+"slug": "wairoa",
+"name": "Wairoa",
+"parentSlug": "hawkes-bay"
+},
+{
+"slug": "napier",
+"name": "Napier",
+"parentSlug": "hawkes-bay"
+},
+{
+"slug": "hastings",
+"name": "Hastings",
+"parentSlug": "hawkes-bay"
+},
+{
+"slug": "central-hawkes-bay",
+"name": "Central Hawke's Bay",
+"parentSlug": "hawkes-bay"
+},
+{
+"slug": "new-plymouth",
+"name": "New Plymouth",
+"parentSlug": "taranaki"
+},
+{
+"slug": "stratford",
+"name": "Stratford",
+"parentSlug": "taranaki"
+},
+{
+"slug": "south-taranaki",
+"name": "South Taranaki",
+"parentSlug": "taranaki"
+},
+{
+"slug": "ruapehu",
+"name": "Ruapehu",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "whanganui",
+"name": "Whanganui",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "rangitikei",
+"name": "Rangitikei",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "manawatu",
+"name": "Manawatu",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "horowhenua",
+"name": "Horowhenua",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "tararua",
+"name": "Tararua",
+"parentSlug": "manawatu-whanganui"
+},
+{
+"slug": "kapiti-coast",
+"name": "Kapiti Coast",
+"parentSlug": "wellington"
+},
+{
+"slug": "porirua",
+"name": "Porirua",
+"parentSlug": "wellington"
+},
+{
+"slug": "upper-hutt",
+"name": "Upper Hutt",
+"parentSlug": "wellington"
+},
+{
+"slug": "lower-hutt",
+"name": "Lower Hutt",
+"parentSlug": "wellington"
+},
+{
+"slug": "masterton",
+"name": "Masterton",
+"parentSlug": "wellington"
+},
+{
+"slug": "carterton",
+"name": "Carterton",
+"parentSlug": "wellington"
+},
+{
+"slug": "south-wairarapa",
+"name": "South Wairarapa",
+"parentSlug": "wellington"
+},
+{
+"slug": "buller",
+"name": "Buller",
+"parentSlug": "west-coast"
+},
+{
+"slug": "grey-district",
+"name": "Grey District",
+"parentSlug": "west-coast"
+},
+{
+"slug": "westland",
+"name": "Westland",
+"parentSlug": "west-coast"
+},
+{
+"slug": "kaikoura",
+"name": "Kaikoura",
+"parentSlug": "canterbury"
+},
+{
+"slug": "hurunui",
+"name": "Hurunui",
+"parentSlug": "canterbury"
+},
+{
+"slug": "waimakariri",
+"name": "Waimakariri",
+"parentSlug": "canterbury"
+},
+{
+"slug": "banks-peninsula",
+"name": "Banks Peninsula",
+"parentSlug": "canterbury"
+},
+{
+"slug": "selwyn",
+"name": "Selwyn",
+"parentSlug": "canterbury"
+},
+{
+"slug": "ashburton",
+"name": "Ashburton",
+"parentSlug": "canterbury"
+},
+{
+"slug": "timaru",
+"name": "Timaru",
+"parentSlug": "canterbury"
+},
+{
+"slug": "mackenzie",
+"name": "Mackenzie",
+"parentSlug": "canterbury"
+},
+{
+"slug": "waimate",
+"name": "Waimate",
+"parentSlug": "canterbury"
+},
+{
+"slug": "waitaki",
+"name": "Waitaki",
+"parentSlug": "otago"
+},
+{
+"slug": "queenstown-lakes",
+"name": "Queenstown-Lakes",
+"parentSlug": "otago"
+},
+{
+"slug": "central-otago",
+"name": "Central Otago",
+"parentSlug": "otago"
+},
+{
+"slug": "dunedin",
+"name": "Dunedin",
+"parentSlug": "otago"
+},
+{
+"slug": "clutha",
+"name": "Clutha",
+"parentSlug": "otago"
+},
+{
+"slug": "chatham-islands",
+"name": "Chatham Islands",
+"parentSlug": null
+},
+{
+"slug": "invercargill",
+"name": "Invercargill",
+"parentSlug": "southland"
+},
+{
+"slug": "eastern-southland",
+"name": "Eastern Southland",
+"parentSlug": "southland"
+},
+{
+"slug": "western-southland",
+"name": "Western Southland",
+"parentSlug": "southland"
+},
+{
+"slug": "northern-southland",
+"name": "Northern Southland",
+"parentSlug": "southland"
+},
+{
+"slug": "nationwide",
+"name": "Nationwide",
+"parentSlug": null
+}
+]

@@ -5,6 +5,7 @@
 // JobPosting / BreadcrumbList / AggregateRating — we reproduce equivalents here.
 
 import type { Article, Listing } from "./types";
+import { regionName } from "./data";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://ruralhq.co.nz";
@@ -14,67 +15,51 @@ export function absoluteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
 
-export function listingPath(listing: Pick<Listing, "type" | "slug">) {
-  return `/${listing.type}/${listing.slug}`;
+// On the live site every listing — businesses AND contractors — resolves under
+// the /businesses/ base (/contractors/{slug} 301s to /businesses/{slug}). We
+// preserve that so existing URLs/rankings are kept; "Contractors" is a browse
+// section, not a separate URL namespace.
+export function listingPath(listing: Pick<Listing, "slug">) {
+  return `/businesses/${listing.slug}`;
 }
 
-/** Map a listing to the appropriate schema.org type. */
+/** schema.org LocalBusiness for a business/contractor listing. */
 export function listingJsonLd(listing: Listing) {
   const url = absoluteUrl(listingPath(listing));
-  const base: Record<string, unknown> = {
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
+    "@type": "LocalBusiness",
     name: listing.title,
-    description: listing.excerpt,
+    description: listing.tagline || listing.excerpt,
     url,
     ...(listing.imageUrl ? { image: listing.imageUrl } : {}),
+    ...(listing.phone ? { telephone: listing.phone } : {}),
+    ...(listing.website ? { sameAs: listing.website } : {}),
+    address: {
+      "@type": "PostalAddress",
+      ...(listing.town ? { addressLocality: listing.town } : {}),
+      ...(regionName(listing.regionSlug)
+        ? { addressRegion: regionName(listing.regionSlug) }
+        : {}),
+      addressCountry: "NZ",
+    },
   };
 
+  if (typeof listing.lat === "number" && typeof listing.lng === "number") {
+    data.geo = {
+      "@type": "GeoCoordinates",
+      latitude: listing.lat,
+      longitude: listing.lng,
+    };
+  }
   if (listing.rating && listing.reviewCount) {
-    base.aggregateRating = {
+    data.aggregateRating = {
       "@type": "AggregateRating",
       ratingValue: listing.rating,
       reviewCount: listing.reviewCount,
     };
   }
-
-  switch (listing.type) {
-    case "events":
-      return {
-        ...base,
-        "@type": "Event",
-        startDate: listing.startsAt,
-        endDate: listing.endsAt,
-        eventStatus: "https://schema.org/EventScheduled",
-        location: {
-          "@type": "Place",
-          name: listing.town ?? listing.region,
-          address: { "@type": "PostalAddress", addressRegion: listing.region },
-        },
-      };
-    case "jobs":
-      return {
-        ...base,
-        "@type": "JobPosting",
-        title: listing.title,
-        datePosted: listing.createdAt,
-        jobLocation: {
-          "@type": "Place",
-          address: { "@type": "PostalAddress", addressRegion: listing.region },
-        },
-      };
-    default:
-      return {
-        ...base,
-        "@type": "LocalBusiness",
-        telephone: listing.phone,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: listing.town,
-          addressRegion: listing.region,
-          addressCountry: "NZ",
-        },
-      };
-  }
+  return data;
 }
 
 export function articleJsonLd(article: Article) {

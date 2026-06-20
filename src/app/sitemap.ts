@@ -4,9 +4,8 @@
 // it grows past ~50k URLs, split via generateSitemaps().
 
 import type { MetadataRoute } from "next";
-import { getArticles, getListingSlugs } from "@/lib/data";
-import { LISTING_TYPES } from "@/lib/types";
-import { absoluteUrl } from "@/lib/seo";
+import { getAllListings, getArticles } from "@/lib/data";
+import { absoluteUrl, listingPath } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
@@ -15,15 +14,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absoluteUrl("/newsfeed"), changeFrequency: "daily", priority: 0.8 },
   ];
 
-  for (const type of LISTING_TYPES) {
-    const slugs = await getListingSlugs(type);
-    for (const slug of slugs) {
-      entries.push({
-        url: absoluteUrl(`/${type}/${slug}`),
-        changeFrequency: "weekly",
-        priority: 0.7,
-      });
-    }
+  for (const listing of await getAllListings()) {
+    entries.push({
+      url: absoluteUrl(listingPath(listing)),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    });
   }
 
   for (const article of await getArticles()) {

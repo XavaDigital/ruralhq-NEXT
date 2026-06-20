@@ -1,0 +1,1247 @@
+[
+{
+"slug": "automotive",
+"name": "Automotive",
+"parentSlug": null
+},
+{
+"slug": "general-automotive-services",
+"name": "General Automotive Services",
+"parentSlug": "automotive"
+},
+{
+"slug": "automotive-servicing-repairs",
+"name": "Automotive Servicing & Repairs",
+"parentSlug": "automotive"
+},
+{
+"slug": "auto-accessories",
+"name": "Auto Accessories",
+"parentSlug": "automotive"
+},
+{
+"slug": "business-services",
+"name": "Business Services",
+"parentSlug": null
+},
+{
+"slug": "office-goods",
+"name": "Office Goods",
+"parentSlug": "business-services"
+},
+{
+"slug": "industrial",
+"name": "Industrial",
+"parentSlug": null
+},
+{
+"slug": "industrial-engineering",
+"name": "Industrial Engineering",
+"parentSlug": "industrial"
+},
+{
+"slug": "livestock-pets",
+"name": "Livestock & Pets",
+"parentSlug": null
+},
+{
+"slug": "livestock-agents",
+"name": "Livestock Agents",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "chemical-fertiliser",
+"name": "Chemical & Fertiliser",
+"parentSlug": null
+},
+{
+"slug": "agricultural-chemical",
+"name": "Agricultural Chemical",
+"parentSlug": "chemical-fertiliser"
+},
+{
+"slug": "industrial-equipment-machinery",
+"name": "Industrial Equipment & Machinery",
+"parentSlug": "industrial"
+},
+{
+"slug": "contractors",
+"name": "Rural Contractors",
+"parentSlug": null
+},
+{
+"slug": "baling-balage-hay-contractors",
+"name": "Baling Balage Hay Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "cartage-contractors",
+"name": "Cartage Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "cultivation-contractors",
+"name": "Cultivation Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "direct-drilling-contractors",
+"name": "Direct Drilling Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "drilling-contractors",
+"name": "Drilling Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "earth-moving-contractors",
+"name": "Earth Moving Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "fertilising-contractors",
+"name": "Fertilising Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "forage-harvesting-silage-contractors",
+"name": "Forage Harvesting (Silage) Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "land-clearing-development-contractors",
+"name": "Land Clearing & Development Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "mowing-contractors",
+"name": "Mowing Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "mulching-contractors",
+"name": "Mulching Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "precision-planting-contractors",
+"name": "Precision Planting Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "spraying-broadacre-contractors",
+"name": "Spraying Broadacre Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "windrowing-contractors",
+"name": "Windrowing Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "ploughing-contractors",
+"name": "Ploughing Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "track-maintenance-contractors",
+"name": "Track Maintenance Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "general-agricultural-contractors",
+"name": "General Agricultural Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "farm-machinery-implements",
+"name": "Farm Machinery & Implements",
+"parentSlug": null
+},
+{
+"slug": "new-machinery-implements",
+"name": "Machinery & Implements - New",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "water",
+"name": "Water",
+"parentSlug": null
+},
+{
+"slug": "water-tanks",
+"name": "Water Tanks",
+"parentSlug": "water"
+},
+{
+"slug": "spraying-brush-weed-control-contractors",
+"name": "Spraying Brush Weed Control Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "spraying-exterbal-parasites-sheep-dipping-contractors",
+"name": "Spraying Exterbal Parasites Sheep Dipping Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "spraying-total-vegetation-contractors",
+"name": "Spraying Total Vegetation Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "consultants-advisors",
+"name": "Consultants & Advisors",
+"parentSlug": null
+},
+{
+"slug": "accountants",
+"name": "Accountants",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "fencing",
+"name": "Fencing",
+"parentSlug": null
+},
+{
+"slug": "refrigeration-services",
+"name": "Refrigeration & Services",
+"parentSlug": "industrial"
+},
+{
+"slug": "equipment",
+"name": "Equipment",
+"parentSlug": null
+},
+{
+"slug": "shearing-equipment",
+"name": "Shearing Equipment",
+"parentSlug": "equipment"
+},
+{
+"slug": "grain-seed",
+"name": "Grain & Seed",
+"parentSlug": null
+},
+{
+"slug": "crop-protection",
+"name": "Crop Protection",
+"parentSlug": "grain-seed"
+},
+{
+"slug": "building-landscaping",
+"name": "Building & Landscaping",
+"parentSlug": null
+},
+{
+"slug": "building-materials-supplies",
+"name": "Building Materials & Supplies",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "industrial-products",
+"name": "Industrial Products",
+"parentSlug": "industrial"
+},
+{
+"slug": "livestock-feed-supplements",
+"name": "Livestock Feed & Supplements",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "aeration-contractors",
+"name": "Aeration Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "photographers",
+"name": "Photographers",
+"parentSlug": "business-services"
+},
+{
+"slug": "general-electric-fencing",
+"name": "General & Electric Fencing",
+"parentSlug": "fencing"
+},
+{
+"slug": "finance-advisors",
+"name": "Finance Advisors",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "grain-seed-retailers",
+"name": "Grain & Seed Retailers",
+"parentSlug": "grain-seed"
+},
+{
+"slug": "machinery-implements-hire",
+"name": "Machinery & Implements - Hire",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "equine",
+"name": "Equine",
+"parentSlug": null
+},
+{
+"slug": "accessories-equine",
+"name": "Accessories - Equine",
+"parentSlug": "equine"
+},
+{
+"slug": "engineering-manufacturing",
+"name": "Engineering & Manufacturing",
+"parentSlug": null
+},
+{
+"slug": "engineering-supplies",
+"name": "Engineering Supplies",
+"parentSlug": "engineering-manufacturing"
+},
+{
+"slug": "irrigation-water",
+"name": "Irrigation",
+"parentSlug": "water"
+},
+{
+"slug": "forestry-logging-contractors",
+"name": "Forestry & Logging Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "hedge-shelter-cut-contractors",
+"name": "Hedge & Shelter Cut Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "park-reserve-mainteance-contractors",
+"name": "Park & Reserve Mainteance Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "engineering-services",
+"name": "Engineering Services",
+"parentSlug": "engineering-manufacturing"
+},
+{
+"slug": "motorbikes-atvs",
+"name": "Motorbikes & ATVs",
+"parentSlug": null
+},
+{
+"slug": "sales-motorbikes-atvs",
+"name": "Sales - Motorbikes & ATVs",
+"parentSlug": "motorbikes-atvs"
+},
+{
+"slug": "farm-drainage-contractors",
+"name": "Farm Drainage Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "root-raking-contractors",
+"name": "Root Raking Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "cleaning",
+"name": "Cleaning, Waste & Pest Control",
+"parentSlug": null
+},
+{
+"slug": "cleaning-services",
+"name": "Cleaning Services",
+"parentSlug": "cleaning"
+},
+{
+"slug": "glass-glaziers",
+"name": "Glass & Glaziers",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "transport-logistics",
+"name": "Transport & Logistics",
+"parentSlug": null
+},
+{
+"slug": "air-transport",
+"name": "Air Transport",
+"parentSlug": "transport-logistics"
+},
+{
+"slug": "accessories-motorbikes-atvs",
+"name": "Accessories - Motorbikes & ATVs",
+"parentSlug": "motorbikes-atvs"
+},
+{
+"slug": "fencing-contractors",
+"name": "Fencer/Fencing Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "horticulture-contractors",
+"name": "Horticulture Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "grain-seed-harvesting-contractors",
+"name": "Grain & Seed Harvesting Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "viticulture-contractors",
+"name": "Viticulture Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "spraying-aquatic-contractors",
+"name": "Spraying Aquatic Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "aggregate-suppliers",
+"name": "Aggregate Suppliers",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "agronomy-consultants",
+"name": "Agronomy Consultants",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "fire-security",
+"name": "Fire & Security",
+"parentSlug": null
+},
+{
+"slug": "alarm-systems",
+"name": "Alarm Systems",
+"parentSlug": "fire-security"
+},
+{
+"slug": "animal-health-products",
+"name": "Animal Health Products",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "arborist-contractors",
+"name": "Arborist Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "architecture",
+"name": "Architecture",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "auto-electric",
+"name": "Auto Electric",
+"parentSlug": "automotive"
+},
+{
+"slug": "breeders-equine",
+"name": "Breeders - Equine",
+"parentSlug": "equine"
+},
+{
+"slug": "builders",
+"name": "Builders",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "building-supplies",
+"name": "Building Supplies",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "building-tools-equipment-building-landscaping",
+"name": "Building Tools & Equipment",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "camera-systems",
+"name": "Camera Systems",
+"parentSlug": "fire-security"
+},
+{
+"slug": "canvas-upholstery",
+"name": "Canvas & Upholstery",
+"parentSlug": null
+},
+{
+"slug": "canvas-services",
+"name": "Canvas Services",
+"parentSlug": "canvas-upholstery"
+},
+{
+"slug": "cattlestops",
+"name": "Cattlestops",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "cladding-suppliers",
+"name": "Cladding Suppliers",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "industrial-coatings",
+"name": "Industrial Coatings",
+"parentSlug": "industrial"
+},
+{
+"slug": "communications-systems",
+"name": "Communications Systems",
+"parentSlug": "business-services"
+},
+{
+"slug": "computer-repair",
+"name": "Computer Repair",
+"parentSlug": "business-services"
+},
+{
+"slug": "concrete-suppliers",
+"name": "Concrete Suppliers",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "construction-services-building-landscaping",
+"name": "Construction Services",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "consultancy-transport",
+"name": "Consultancy - Transport",
+"parentSlug": "transport-logistics"
+},
+{
+"slug": "health-safety",
+"name": "Health & Safety",
+"parentSlug": null
+},
+{
+"slug": "health-safety-consultants",
+"name": "Health & Safety Consultants",
+"parentSlug": "health-safety"
+},
+{
+"slug": "dairy-sheds-supplies",
+"name": "Dairy Sheds & Supplies",
+"parentSlug": null
+},
+{
+"slug": "shed-consumables",
+"name": "Shed Consumables",
+"parentSlug": "dairy-sheds-supplies"
+},
+{
+"slug": "health-wellness",
+"name": "Health & Wellness",
+"parentSlug": null
+},
+{
+"slug": "counsellors",
+"name": "Counsellors",
+"parentSlug": "health-wellness"
+},
+{
+"slug": "cultivating-parts",
+"name": "Cultivating Parts",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "design-services",
+"name": "Design Services",
+"parentSlug": "business-services"
+},
+{
+"slug": "signage-display",
+"name": "Signage & Display",
+"parentSlug": "business-services"
+},
+{
+"slug": "seed-dressing",
+"name": "Seed Dressing",
+"parentSlug": "grain-seed"
+},
+{
+"slug": "effluent",
+"name": "Effluent",
+"parentSlug": "dairy-sheds-supplies"
+},
+{
+"slug": "electrical-electronic",
+"name": "Electrical & Electronic",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "electronics-sales",
+"name": "Electronics Sales",
+"parentSlug": "business-services"
+},
+{
+"slug": "training-education-employment",
+"name": "Training, Education & Employment",
+"parentSlug": null
+},
+{
+"slug": "employment-services",
+"name": "Employment Services",
+"parentSlug": "training-education-employment"
+},
+{
+"slug": "energy-mining-equipment",
+"name": "Energy & Mining Equipment",
+"parentSlug": "industrial"
+},
+{
+"slug": "environmental-consultancy",
+"name": "Environmental Consultancy",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "clothing-footwear",
+"name": "Clothing & Footwear",
+"parentSlug": null
+},
+{
+"slug": "farm-clothing-footwear",
+"name": "Farm Clothing & Footwear",
+"parentSlug": "clothing-footwear"
+},
+{
+"slug": "farm-management-consultancy",
+"name": "Farm Management Consultancy",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "machinery-implements-servicing-repairs",
+"name": "Machinery & Implements Servicing & Repairs",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "feed-supplements-equine",
+"name": "Feed & Supplements - Equine",
+"parentSlug": "equine"
+},
+{
+"slug": "feed-systems",
+"name": "Feed Systems",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "fertiliser-manufacturers-suppliers",
+"name": "Fertiliser Manufacturers & Suppliers",
+"parentSlug": "chemical-fertiliser"
+},
+{
+"slug": "spraying-aerial-contractors",
+"name": "Spraying Aerial Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "fertilizer-spreaders-farm-machinery-implements",
+"name": "Fertilizer Spreaders",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "fire-protection",
+"name": "Fire Protection Systems",
+"parentSlug": "fire-security"
+},
+{
+"slug": "water-fittings-pipe",
+"name": "Water Fittings & Pipe",
+"parentSlug": "water"
+},
+{
+"slug": "flooring-building",
+"name": "Flooring - Building",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "forestry-consultancy",
+"name": "Forestry Consultancy",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "forestry-equipment",
+"name": "Forestry Equipment",
+"parentSlug": "equipment"
+},
+{
+"slug": "gates",
+"name": "Gates",
+"parentSlug": "fencing"
+},
+{
+"slug": "generators",
+"name": "Generators",
+"parentSlug": "equipment"
+},
+{
+"slug": "genetics",
+"name": "Genetics",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "grain-storage",
+"name": "Grain Storage",
+"parentSlug": "grain-seed"
+},
+{
+"slug": "grey-water",
+"name": "Grey Water",
+"parentSlug": "water"
+},
+{
+"slug": "hay-machinery-implements",
+"name": "Hay Machinery & Implements",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "heating-refrigeration",
+"name": "Heating & Refrigeration",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "horticulture-farm-machinery-implements",
+"name": "Horticulture Machinery & Implements",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "hydraulics-machinery-implements",
+"name": "Hydraulics - Machinery & Implements",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "industrial-parts",
+"name": "Industrial Parts",
+"parentSlug": "industrial"
+},
+{
+"slug": "industrial-services",
+"name": "Industrial Services",
+"parentSlug": "industrial"
+},
+{
+"slug": "internet-landline",
+"name": "Internet & Landline",
+"parentSlug": "business-services"
+},
+{
+"slug": "joinery",
+"name": "Joinery",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "kennels",
+"name": "Kennels",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "land-transport",
+"name": "Land Transport",
+"parentSlug": "transport-logistics"
+},
+{
+"slug": "landscape-architecture",
+"name": "Landscape Architecture",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "lawyers",
+"name": "Lawyers",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "locksmiths-key-cutters",
+"name": "Locksmiths & Key Cutters",
+"parentSlug": "fire-security"
+},
+{
+"slug": "maintenance-industrial",
+"name": "Maintenance - Industrial",
+"parentSlug": "industrial"
+},
+{
+"slug": "manufacturing-industrial",
+"name": "Manufacturing - Industrial",
+"parentSlug": "industrial"
+},
+{
+"slug": "marketing",
+"name": "Marketing",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "marketing-research",
+"name": "Marketing & Research",
+"parentSlug": "business-services"
+},
+{
+"slug": "minerals-raw-materials",
+"name": "Minerals & Raw Materials",
+"parentSlug": "industrial"
+},
+{
+"slug": "mobile-communications",
+"name": "Mobile Communications",
+"parentSlug": "business-services"
+},
+{
+"slug": "panel-paint",
+"name": "Panel & Paint",
+"parentSlug": "automotive"
+},
+{
+"slug": "machinery-implements-parts",
+"name": "Machinery & Implements Parts",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "parts-automotive",
+"name": "Automotive Parts",
+"parentSlug": "automotive"
+},
+{
+"slug": "pest-control-services",
+"name": "Pest Control Services",
+"parentSlug": "cleaning"
+},
+{
+"slug": "plant-shed",
+"name": "Plant - Shed",
+"parentSlug": "dairy-sheds-supplies"
+},
+{
+"slug": "plumber",
+"name": "Plumber",
+"parentSlug": "water"
+},
+{
+"slug": "plumbing-pumps-shed",
+"name": "Plumbing & Pumps - Shed",
+"parentSlug": "dairy-sheds-supplies"
+},
+{
+"slug": "plumbing-supplies",
+"name": "Plumbing Supplies",
+"parentSlug": "water"
+},
+{
+"slug": "pool-spa",
+"name": "Pool & Spa",
+"parentSlug": "water"
+},
+{
+"slug": "fence-posts",
+"name": "Fence Posts",
+"parentSlug": "fencing"
+},
+{
+"slug": "ppe",
+"name": "PPE",
+"parentSlug": "health-safety"
+},
+{
+"slug": "printing-services",
+"name": "Printing Services",
+"parentSlug": "business-services"
+},
+{
+"slug": "property-advisors",
+"name": "Property Advisors",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "pump-filtration",
+"name": "Pump & Filtration",
+"parentSlug": "water"
+},
+{
+"slug": "races",
+"name": "Races",
+"parentSlug": "equipment"
+},
+{
+"slug": "races-clamps",
+"name": "Races & Clamps",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "clothing-repairs-embroidery",
+"name": "Clothing Repairs & Embroidery",
+"parentSlug": "clothing-footwear"
+},
+{
+"slug": "residential-builder",
+"name": "Residential Builder",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "roading-contractors",
+"name": "Roading Contractors",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "roofing",
+"name": "Roofing",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "saddlery",
+"name": "Saddlery",
+"parentSlug": "equine"
+},
+{
+"slug": "health-safety-supplies",
+"name": "Health & Safety Supplies",
+"parentSlug": "health-safety"
+},
+{
+"slug": "chainsaws-mowers",
+"name": "Chainsaws & Mowers",
+"parentSlug": null
+},
+{
+"slug": "sales-chainsaws-mowers",
+"name": "Chainsaws & Mowers Sales",
+"parentSlug": "chainsaws-mowers"
+},
+{
+"slug": "chainsaws-mowers-servicing",
+"name": "Chainsaws & Mowers Servicing",
+"parentSlug": "chainsaws-mowers"
+},
+{
+"slug": "shearing-contractors",
+"name": "Shearing Contractors",
+"parentSlug": "contractors"
+},
+{
+"slug": "shed-builders",
+"name": "Shed Builders",
+"parentSlug": "dairy-sheds-supplies"
+},
+{
+"slug": "sheds-garages",
+"name": "Sheds & Garages",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "sea-shipping",
+"name": "Sea Shipping",
+"parentSlug": "transport-logistics"
+},
+{
+"slug": "spray-equipment",
+"name": "Spray Equipment",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "surveyors",
+"name": "Surveyors",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "tertiary-education-education-employment",
+"name": "Tertiary Education",
+"parentSlug": "training-education-employment"
+},
+{
+"slug": "livestock-testing",
+"name": "Livestock Testing",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "engineering-tools",
+"name": "Engineering Tools",
+"parentSlug": "engineering-manufacturing"
+},
+{
+"slug": "trailers",
+"name": "Trailers",
+"parentSlug": "farm-machinery-implements"
+},
+{
+"slug": "transportation-equine",
+"name": "Transportation - Equine",
+"parentSlug": "equine"
+},
+{
+"slug": "truck-sales",
+"name": "Truck Sales",
+"parentSlug": "automotive"
+},
+{
+"slug": "tyres",
+"name": "Tyres",
+"parentSlug": "automotive"
+},
+{
+"slug": "upholstery-services",
+"name": "Upholstery Services",
+"parentSlug": "canvas-upholstery"
+},
+{
+"slug": "veterinarians",
+"name": "Veterinarians",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "waterblasting",
+"name": "Waterblasting",
+"parentSlug": "cleaning"
+},
+{
+"slug": "software",
+"name": "Software",
+"parentSlug": null
+},
+{
+"slug": "nurseries-garden-centres",
+"name": "Nurseries & Garden Centres",
+"parentSlug": null
+},
+{
+"slug": "training",
+"name": "Training",
+"parentSlug": "training-education-employment"
+},
+{
+"slug": "ai-contractors",
+"name": "AI/AB",
+"parentSlug": "contractors"
+},
+{
+"slug": "insurance-advisors",
+"name": "Insurance",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "farm-insurance-insurance-advisors",
+"name": "Farm Insurance",
+"parentSlug": "insurance-advisors"
+},
+{
+"slug": "business-insurance-insurance-advisors",
+"name": "Business Insurance",
+"parentSlug": "insurance-advisors"
+},
+{
+"slug": "health-insurance-insurance-advisors",
+"name": "Health Insurance",
+"parentSlug": "insurance-advisors"
+},
+{
+"slug": "general-insurance-insurance-advisors",
+"name": "General Insurance",
+"parentSlug": "insurance-advisors"
+},
+{
+"slug": "homekill-butchery",
+"name": "Homekill Butchery",
+"parentSlug": "livestock-pets"
+},
+{
+"slug": "first-aid-training",
+"name": "First Aid Training",
+"parentSlug": "training-education-employment"
+},
+{
+"slug": "media-company",
+"name": "Media Company",
+"parentSlug": null
+},
+{
+"slug": "photography",
+"name": "Photography",
+"parentSlug": null
+},
+{
+"slug": "video",
+"name": "Video",
+"parentSlug": null
+},
+{
+"slug": "articles",
+"name": "Articles",
+"parentSlug": null
+},
+{
+"slug": "web-development",
+"name": "Web Development",
+"parentSlug": null
+},
+{
+"slug": "sale-discount",
+"name": "Sale/Discount",
+"parentSlug": null
+},
+{
+"slug": "survey",
+"name": "Survey",
+"parentSlug": null
+},
+{
+"slug": "giveaway",
+"name": "Giveaway",
+"parentSlug": null
+},
+{
+"slug": "competition",
+"name": "Competition",
+"parentSlug": null
+},
+{
+"slug": "coupons",
+"name": "Coupons",
+"parentSlug": null
+},
+{
+"slug": "free",
+"name": "Free",
+"parentSlug": null
+},
+{
+"slug": "other",
+"name": "Other",
+"parentSlug": null
+},
+{
+"slug": "community",
+"name": "Community",
+"parentSlug": null
+},
+{
+"slug": "cultural",
+"name": "Cultural",
+"parentSlug": null
+},
+{
+"slug": "industry",
+"name": "Industry",
+"parentSlug": null
+},
+{
+"slug": "sports",
+"name": "Sports",
+"parentSlug": null
+},
+{
+"slug": "educational",
+"name": "Educational",
+"parentSlug": null
+},
+{
+"slug": "family-friendly",
+"name": "Family Friendly",
+"parentSlug": null
+},
+{
+"slug": "fundraising",
+"name": "Fundraising",
+"parentSlug": null
+},
+{
+"slug": "festival",
+"name": "Festival",
+"parentSlug": null
+},
+{
+"slug": "free-entry",
+"name": "Free Entry",
+"parentSlug": null
+},
+{
+"slug": "farm-jobs",
+"name": "Farm Jobs",
+"parentSlug": null
+},
+{
+"slug": "agricultural-assistant",
+"name": "Agricultural Assistant",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "general-manager",
+"name": "General Manager",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "saleyard-manager",
+"name": "SaleYard Manager",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "sheep-dairy-opportunity",
+"name": "Sheep Dairy Opportunity",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "station-manager",
+"name": "Station Manager",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "farm-manager",
+"name": "Farm Manager",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "operations-manager",
+"name": "Operations Manager",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "sharemilker",
+"name": "Sharemilker",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "shepherd-general",
+"name": "Shepherd/General",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "tractor-truck-machinery-operator",
+"name": "Tractor/Truck/Machinery Operator",
+"parentSlug": "farm-jobs"
+},
+{
+"slug": "top-dressing",
+"name": "Top Dressing",
+"parentSlug": "chemical-fertiliser"
+},
+{
+"slug": "home-garden",
+"name": "Home & Garden",
+"parentSlug": null
+},
+{
+"slug": "firewood",
+"name": "Firewood",
+"parentSlug": "home-garden"
+},
+{
+"slug": "storage",
+"name": "Storage",
+"parentSlug": "home-garden"
+},
+{
+"slug": "business-brokers",
+"name": "Business Brokers",
+"parentSlug": "consultants-advisors"
+},
+{
+"slug": "landscaping-supplies",
+"name": "Landscaping Supplies",
+"parentSlug": "building-landscaping"
+},
+{
+"slug": "shelters-sheds",
+"name": "Shelters/Sheds",
+"parentSlug": "livestock-pets"
+}
+]

@@ -49,7 +49,7 @@ export default async function ArticlePage({ params }: RouteProps) {
         <AdSlot slot="article-top" />
       </div>
       <div
-        className="prose prose-sm max-w-none text-gray-800"
+        className="max-w-none text-body leading-relaxed [&_a]:text-brand-dark [&_a]:underline [&>p]:mb-3"
         dangerouslySetInnerHTML={{ __html: article.body }}
       />
     </article>

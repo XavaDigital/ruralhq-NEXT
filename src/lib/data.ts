@@ -121,6 +121,26 @@ export async function getAllListings(): Promise<Listing[]> {
   return LISTINGS;
 }
 
+// "You May Also Be Interested In" — same type, sharing a category or region,
+// nearest first by shared categories.
+export async function getRelatedListings(
+  listing: Listing,
+  limit = 3,
+): Promise<Listing[]> {
+  const cats = new Set(listing.categories);
+  return LISTINGS.filter((l) => l.id !== listing.id && l.type === listing.type)
+    .map((l) => ({
+      l,
+      score:
+        l.categories.filter((c) => cats.has(c)).length +
+        (l.regionSlug && l.regionSlug === listing.regionSlug ? 1 : 0),
+    }))
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map((x) => x.l);
+}
+
 // ---------------------------------------------------------------------------
 // Articles
 // ---------------------------------------------------------------------------

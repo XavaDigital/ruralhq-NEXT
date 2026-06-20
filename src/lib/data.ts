@@ -56,6 +56,34 @@ export function categoryName(slug?: string): string | undefined {
   return slug ? CATEGORY_NAME.get(slug) : undefined;
 }
 
+// The "Contractors" section is businesses tagged with the Rural Contractors
+// category tree (root slug "contractors") — matching the live 301 behaviour,
+// since the old contractors post type was a duplicate of businesses.
+const CONTRACTOR_CATEGORIES: Set<string> = (() => {
+  const set = new Set<string>(["contractors"]);
+  for (let changed = true; changed; ) {
+    changed = false;
+    for (const c of CATEGORIES) {
+      if (c.parentSlug && set.has(c.parentSlug) && !set.has(c.slug)) {
+        set.add(c.slug);
+        changed = true;
+      }
+    }
+  }
+  return set;
+})();
+
+export async function getContractorListings(
+  query: { page?: number; perPage?: number } = {},
+): Promise<{ items: Listing[]; total: number }> {
+  const { page = 1, perPage = 36 } = query;
+  const items = LISTINGS.filter((l) =>
+    l.categories.some((c) => CONTRACTOR_CATEGORIES.has(c)),
+  );
+  const start = (page - 1) * perPage;
+  return { items: items.slice(start, start + perPage), total: items.length };
+}
+
 // Slugs of a region's descendants (so filtering by a top region includes its
 // districts).
 function regionWithDescendants(slug: string): Set<string> {

@@ -3,7 +3,7 @@
 // a filtered view of the contractors directory.
 
 import type { Metadata } from "next";
-import { getListings } from "@/lib/data";
+import { getContractorListings } from "@/lib/data";
 import { ListingCard } from "@/components/ListingCard";
 import { AdSlot } from "@/components/AdSlot";
 
@@ -13,14 +13,16 @@ export const metadata: Metadata = {
     "Find rural contractors across New Zealand — cultivation, baling, spraying, fencing, cartage and more.",
 };
 
+// Contractors live under the businesses directory (the old contractors post
+// type was a duplicate). This section is businesses in the contractor category
+// tree — see getContractorListings.
 export default async function ContractorsPage({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
   const sp = await searchParams;
-  const { items, total } = await getListings({
-    type: "contractors",
+  const { items, total } = await getContractorListings({
     page: sp.page ? Number(sp.page) : 1,
     perPage: 36,
   });

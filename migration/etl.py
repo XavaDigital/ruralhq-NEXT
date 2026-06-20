@@ -29,7 +29,6 @@ from inspect_dump import iter_rows, PREFIX  # noqa: E402
 
 DUMP = sys.argv[1] if len(sys.argv) > 1 else "pbyacgvpat.sql"
 OUT_DIR = os.path.join("src", "data")
-SAMPLE = {"businesses": 200, "contractors": 80}
 
 # PHP-serialized string value: s:<len>:"....."
 _PHP_STR = re.compile(r's:\d+:"((?:[^"\\]|\\.)*)"')
@@ -179,11 +178,28 @@ def main():
             "updatedAt": p["updatedAt"],
         })
 
-    # 6b) Ensure globally-unique slugs. Businesses and contractors share the
-    # /businesses/{slug} URL base, but WordPress only enforced uniqueness within
-    # each post type — so a business and a contractor can collide. Businesses
-    # (more numerous, hold the SEO equity) keep their slug; colliding
-    # contractors get a numeric suffix.
+    # 6a) Fold contractors into businesses. The `contractors` post type is ~98%
+    # duplicate of businesses (same entities — the live site 301s
+    # /contractors/{slug} -> /businesses/{slug}). So we drop the duplicates and
+    # keep only the genuinely-unique contractors, imported as businesses. The
+    # "Contractors" section is a category-filtered view of businesses, matching
+    # the live behaviour. (Contractor *categories* already live on businesses.)
+    # Match on normalized title: ~511 dupes share an exact slug, but ~1,022
+    # share the same entity title (slug variants), so title is the true key.
+    biz_titles = {x["title"].strip().lower() for x in listings["businesses"]}
+    unique_contractors = [
+        c for c in listings["contractors"]
+        if c["title"].strip().lower() not in biz_titles
+    ]
+    for c in unique_contractors:
+        c["type"] = "businesses"
+    listings["businesses"].extend(unique_contractors)
+    print(f"dropped {len(listings['contractors']) - len(unique_contractors)} "
+          f"duplicate contractors; folded {len(unique_contractors)} unique ones "
+          f"into businesses")
+    listings["contractors"] = []
+
+    # 6b) Safety net: ensure globally-unique slugs (should be a no-op now).
     seen, collisions = set(), 0
     for x in listings["businesses"] + listings["contractors"]:
         if x["slug"] in seen:
@@ -196,22 +212,36 @@ def main():
     if collisions:
         print(f"resolved {collisions} slug collision(s)")
 
-    # 7) sample (variety via featured/rating sort) and write
-    out = []
-    for ltype, n in SAMPLE.items():
-        rows = listings[ltype]
-        rows.sort(key=lambda x: (x["featured"], x["rating"] or 0,
-                                 x["reviewCount"] or 0), reverse=True)
-        out.extend(rows[:n])
+    # 7) Sample for the app seed. Split between contractor-category and other
+    # businesses so the /contractors section has content in the prototype.
+    parent_of = {c["slug"]: c["parentSlug"] for c in tax_terms["job_listing_category"]}
+
+    def is_contractor_cat(slug):
+        seen = set()
+        while slug and slug not in seen:
+            if slug == "contractors":
+                return True
+            seen.add(slug)
+            slug = parent_of.get(slug)
+        return False
+
+    contractor_cats = {s for s in parent_of if is_contractor_cat(s)}
+    biz = listings["businesses"]
+    biz.sort(key=lambda x: (x["featured"], x["rating"] or 0,
+                            x["reviewCount"] or 0), reverse=True)
+    contractor_biz, other_biz = [], []
+    for b in biz:
+        (contractor_biz if any(c in contractor_cats for c in b["categories"])
+         else other_biz).append(b)
+    out = contractor_biz[:140] + other_biz[:140]
     _write("listings.json", out)
 
     # Full dataset -> Supabase seed SQL (gitignored; regenerate from the dump).
     emit_sql(listings, tax_terms)
 
-    print(f"businesses: {len(listings['businesses'])} total, "
-          f"{min(len(listings['businesses']), SAMPLE['businesses'])} sampled")
-    print(f"contractors: {len(listings['contractors'])} total, "
-          f"{min(len(listings['contractors']), SAMPLE['contractors'])} sampled")
+    print(f"businesses (incl. folded unique contractors): {len(biz)}")
+    print(f"sample: {len(out)} ({len(contractor_biz[:140])} contractor-category "
+          f"+ {len(other_biz[:140])} other)")
     print(f"regions: {len(tax_terms['region'])}, "
           f"categories: {len(tax_terms['job_listing_category'])}")
 

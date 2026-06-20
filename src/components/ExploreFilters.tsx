@@ -7,7 +7,6 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { LISTING_TYPES, LISTING_TYPE_LABEL } from "@/lib/types";
 import type { Term } from "@/lib/types";
 
 export function ExploreFilters({
@@ -35,7 +34,7 @@ export function ExploreFilters({
     "rounded border border-gray-300 px-3 py-2 text-sm bg-white";
 
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <input
         type="search"
         defaultValue={params.get("q") ?? ""}
@@ -43,18 +42,6 @@ export function ExploreFilters({
         onChange={(e) => update("q", e.target.value)}
         className={`${select} lg:col-span-2`}
       />
-      <select
-        defaultValue={params.get("type") ?? ""}
-        onChange={(e) => update("type", e.target.value)}
-        className={select}
-      >
-        <option value="">All types</option>
-        {LISTING_TYPES.map((t) => (
-          <option key={t} value={t}>
-            {LISTING_TYPE_LABEL[t]}
-          </option>
-        ))}
-      </select>
       <select
         defaultValue={params.get("region") ?? ""}
         onChange={(e) => update("region", e.target.value)}

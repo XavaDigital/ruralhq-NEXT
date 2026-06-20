@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Pin the workspace root to this project so Turbopack doesn't infer it from a
+  // stray lockfile higher up the tree (e.g. C:\Users\cirni\package-lock.json).
+  turbopack: { root: __dirname },
   async redirects() {
     return [
       // Contractor detail pages canonically live under /businesses/ (mirrors the

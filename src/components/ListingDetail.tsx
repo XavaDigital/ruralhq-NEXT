@@ -33,21 +33,22 @@ export function ListingDetail({ listing }: { listing: Listing }) {
           />
         ) : null}
         <div>
-          <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+          <span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand-dark">
             {LISTING_TYPE_LABEL[listing.type]}
           </span>
-          <h1 className="mt-2 text-3xl font-bold text-gray-900">
+          <h1 className="mt-2 font-slab text-3xl font-bold text-ink">
             {listing.title}
           </h1>
           {listing.tagline ? (
-            <p className="mt-1 text-gray-600">{listing.tagline}</p>
+            <p className="mt-1 text-body">{listing.tagline}</p>
           ) : null}
           {location ? (
-            <p className="mt-1 text-sm text-gray-500">{location}</p>
+            <p className="mt-1 text-sm text-muted">{location}</p>
           ) : null}
           {listing.rating && listing.reviewCount ? (
-            <p className="mt-1 text-sm text-gray-600">
-              ★ {listing.rating.toFixed(1)} from {listing.reviewCount} reviews
+            <p className="mt-1 text-sm text-body">
+              <span className="text-brand">★</span> {listing.rating.toFixed(1)}{" "}
+              from {listing.reviewCount} reviews
             </p>
           ) : null}
         </div>
@@ -88,7 +89,7 @@ export function ListingDetail({ listing }: { listing: Listing }) {
               href={listing.website}
               rel="nofollow noopener"
               target="_blank"
-              className="text-green-700 underline"
+              className="text-brand-dark underline"
             >
               Visit website
             </a>
@@ -102,7 +103,7 @@ export function ListingDetail({ listing }: { listing: Listing }) {
                 href={s.url}
                 rel="nofollow noopener"
                 target="_blank"
-                className="text-green-700 underline"
+                className="text-brand-dark underline"
               >
                 {s.network}
               </a>

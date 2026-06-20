@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Roboto, Roboto_Slab } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
+
+// Match the live site's typography: Roboto for body/UI, Roboto Slab for
+// secondary headings.
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-roboto",
+  display: "swap",
+});
+const robotoSlab = Roboto_Slab({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto-slab",
+  display: "swap",
+});
 
 // metadataBase makes all relative canonical/OG URLs absolute. title.template
 // gives every page the "<page> | RuralHQ" suffix without repeating it.
@@ -23,8 +39,11 @@ export default function RootLayout({
   const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-white text-gray-900">
+    <html
+      lang="en"
+      className={`h-full antialiased ${roboto.variable} ${robotoSlab.variable}`}
+    >
+      <body className="flex min-h-full flex-col bg-white text-body">
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

@@ -16,13 +16,13 @@ export default async function NewsfeedPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900">Read</h1>
+      <h1 className="font-slab text-2xl font-bold text-ink">Read</h1>
       <ul className="mt-6 space-y-6">
         {articles.map((article) => (
           <li key={article.slug} className="border-b border-gray-100 pb-6">
             <Link
               href={`/${article.slug}`}
-              className="text-lg font-semibold text-green-800 hover:underline"
+              className="font-slab text-lg font-semibold text-brand-dark hover:underline"
             >
               {article.title}
             </Link>

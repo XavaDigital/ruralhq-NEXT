@@ -26,8 +26,8 @@ export default async function ContractorsPage({
   });
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900">Rural Contractors</h1>
+    <div className="container-rhq py-8">
+      <h1 className="font-slab text-2xl font-bold text-ink">Rural Contractors</h1>
       <p className="mt-1 text-sm text-gray-500">{total} contractors</p>
 
       <div className="my-6">

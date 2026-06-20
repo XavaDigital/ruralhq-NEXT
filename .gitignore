@@ -47,3 +47,4 @@ next-env.d.ts
 
 # migration scratch (may contain sample contact data)
 migration/_report.txt
+migration/_live/

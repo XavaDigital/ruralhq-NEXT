@@ -10,25 +10,25 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10">
-      <section className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900">
+    <div className="container-rhq py-10">
+      <section className="rounded-2xl bg-ink px-6 py-14 text-center text-white">
+        <h1 className="font-slab text-4xl font-bold text-white">
           Connecting Rural New Zealand
         </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-gray-600">
-          Find the best contractors, deals, events and jobs near you — across
-          all 16 regions.
+        <p className="mx-auto mt-3 max-w-2xl text-gray-300">
+          Find the best contractors, businesses, deals and events near you —
+          across all 16 regions.
         </p>
-        <div className="mt-6 flex justify-center gap-3">
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link
             href="/explore"
-            className="rounded bg-green-700 px-5 py-2.5 font-medium text-white hover:bg-green-800"
+            className="rounded bg-brand px-5 py-2.5 font-semibold text-white hover:bg-brand-dark"
           >
             Explore the directory
           </Link>
           <Link
             href="/add-listing"
-            className="rounded border border-gray-300 px-5 py-2.5 font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded border border-white/40 px-5 py-2.5 font-medium text-white hover:bg-white/10"
           >
             Add your free listing
           </Link>
@@ -40,7 +40,7 @@ export default async function Home() {
       </div>
 
       <section>
-        <h2 className="text-xl font-bold text-gray-900">Recently added</h2>
+        <h2 className="font-slab text-xl font-bold text-ink">Recently added</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {recent.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
@@ -49,13 +49,13 @@ export default async function Home() {
       </section>
 
       <section className="mt-12">
-        <h2 className="text-xl font-bold text-gray-900">From the newsfeed</h2>
+        <h2 className="font-slab text-xl font-bold text-ink">From the newsfeed</h2>
         <ul className="mt-4 space-y-3">
           {articles.slice(0, 5).map((article) => (
             <li key={article.slug}>
               <Link
                 href={`/${article.slug}`}
-                className="text-green-800 hover:underline"
+                className="text-brand-dark hover:underline"
               >
                 {article.title}
               </Link>

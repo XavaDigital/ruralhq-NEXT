@@ -10,8 +10,17 @@ import listingsJson from "@/data/listings.json";
 import regionsJson from "@/data/regions.json";
 import categoriesJson from "@/data/categories.json";
 import type { Article, Listing, ListingType, Term } from "./types";
+import { getApprovedSubmissionListings } from "./submissions";
 
-const LISTINGS = listingsJson as unknown as Listing[];
+const SEED = listingsJson as unknown as Listing[];
+
+// Live pool = seed listings + any approved user submissions, so a reviewer's
+// approval shows up in the directory immediately (in dev). With Supabase this
+// becomes a single table query.
+async function pool(): Promise<Listing[]> {
+  const subs = await getApprovedSubmissionListings();
+  return subs.length ? [...subs, ...SEED] : SEED;
+}
 const REGIONS = regionsJson as Term[];
 const CATEGORIES = categoriesJson as Term[];
 
@@ -77,7 +86,7 @@ export async function getContractorListings(
   query: { page?: number; perPage?: number } = {},
 ): Promise<{ items: Listing[]; total: number }> {
   const { page = 1, perPage = 36 } = query;
-  const items = LISTINGS.filter((l) =>
+  const items = (await pool()).filter((l) =>
     l.categories.some((c) => CONTRACTOR_CATEGORIES.has(c)),
   );
   const start = (page - 1) * perPage;
@@ -112,7 +121,7 @@ export async function getListings(query: ListingQuery = {}): Promise<{
   total: number;
 }> {
   const { type, region, category, search, page = 1, perPage = 24 } = query;
-  let items = LISTINGS;
+  let items = await pool();
 
   if (type) items = items.filter((l) => l.type === type);
   if (region) {
@@ -138,15 +147,17 @@ export async function getListings(query: ListingQuery = {}): Promise<{
 // Both businesses and contractors share the /businesses/{slug} URL base, so the
 // detail route resolves by slug alone.
 export async function getListingBySlug(slug: string): Promise<Listing | null> {
-  return LISTINGS.find((l) => l.slug === slug) ?? null;
+  return (await pool()).find((l) => l.slug === slug) ?? null;
 }
 
 export async function getAllListingSlugs(): Promise<string[]> {
-  return LISTINGS.map((l) => l.slug);
+  // Seed slugs only — used for static params. Approved submissions render
+  // on-demand (dynamicParams), so they don't need to be prebuilt.
+  return SEED.map((l) => l.slug);
 }
 
 export async function getAllListings(): Promise<Listing[]> {
-  return LISTINGS;
+  return pool();
 }
 
 // "You May Also Be Interested In" — same type, sharing a category or region,
@@ -156,7 +167,7 @@ export async function getRelatedListings(
   limit = 3,
 ): Promise<Listing[]> {
   const cats = new Set(listing.categories);
-  return LISTINGS.filter((l) => l.id !== listing.id && l.type === listing.type)
+  return SEED.filter((l) => l.id !== listing.id && l.type === listing.type)
     .map((l) => ({
       l,
       score:

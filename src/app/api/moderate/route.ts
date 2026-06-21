@@ -1,70 +1,31 @@
-// AI listing moderation endpoint (stub).
+// Standalone moderation endpoint — classify a draft without storing it (useful
+// for testing the classifier or pre-checking in the UI). The actual submission
+// flow lives in POST /api/listings.
 //
-// Flow: a new/edited listing is submitted -> this endpoint asks Claude to
-// classify it as legit vs spam, returning a decision + confidence + reason.
-// Recommended policy to start: human-in-the-loop.
-//   - confidence >= 0.85 & legit  -> auto-approve
-//   - confidence >= 0.85 & spam   -> auto-reject
-//   - otherwise                   -> "flagged" -> human review queue
-// Tighten the auto-approve threshold as the classifier earns trust.
-//
-// To wire up: `npm i @anthropic-ai/sdk`, set ANTHROPIC_API_KEY, and replace the
-// stubbed classification below with a real call (model: claude-opus-4-8 or a
-// cheaper tier like claude-haiku-4-5 for high volume).
+// Policy (see src/lib/moderation.ts): confident legit -> approved, confident
+// spam -> rejected, uncertain -> flagged (human review queue).
 
 import { NextResponse } from "next/server";
+import { classifyListing } from "@/lib/moderation";
 
-interface ModerationRequest {
-  title: string;
-  description: string;
-  website?: string;
-}
-
-interface ModerationResult {
-  decision: "approved" | "rejected" | "flagged";
-  spamProbability: number;
-  confidence: number;
-  reason: string;
-}
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
-  const body = (await request.json()) as ModerationRequest;
-
-  if (!body?.title || !body?.description) {
+  const body = (await request.json().catch(() => ({}))) as {
+    title?: string;
+    description?: string;
+    website?: string;
+  };
+  if (!body.title || !body.description) {
     return NextResponse.json(
       { error: "title and description are required" },
       { status: 400 },
     );
   }
-
-  const result = await classifyListing(body);
+  const result = await classifyListing({
+    title: body.title,
+    description: body.description,
+    website: body.website,
+  });
   return NextResponse.json(result);
-}
-
-// ---------------------------------------------------------------------------
-// STUB: deterministic heuristic placeholder. Replace with a Claude call.
-// ---------------------------------------------------------------------------
-async function classifyListing(
-  listing: ModerationRequest,
-): Promise<ModerationResult> {
-  const text = `${listing.title} ${listing.description}`.toLowerCase();
-  const spammySignals = ["casino", "viagra", "crypto giveaway", "free money"];
-  const hit = spammySignals.find((s) => text.includes(s));
-
-  if (hit) {
-    return {
-      decision: "rejected",
-      spamProbability: 0.95,
-      confidence: 0.9,
-      reason: `Matched spam signal: "${hit}" (stubbed heuristic).`,
-    };
-  }
-
-  return {
-    decision: "flagged",
-    spamProbability: 0.2,
-    confidence: 0.4,
-    reason:
-      "Stubbed classifier — no AI configured yet. Defaulting to human review.",
-  };
 }

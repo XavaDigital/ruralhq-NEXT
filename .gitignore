@@ -49,3 +49,6 @@ next-env.d.ts
 migration/_report.txt
 migration/_live/
 supabase/seed.sql
+
+# local submission store (dev; replaced by Supabase)
+.data/

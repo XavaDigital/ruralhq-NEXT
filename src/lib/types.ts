@@ -75,6 +75,47 @@ export interface Listing {
   updatedAt: string;
 }
 
+// ---------------------------------------------------------------------------
+// User submissions + moderation
+// ---------------------------------------------------------------------------
+
+// The fields a customer fills in on the Add Listing form.
+export interface ListingDraft {
+  title: string;
+  tagline?: string;
+  description: string;
+  regionSlug?: string;
+  town?: string;
+  address?: string;
+  categories: string[];
+  phone?: string;
+  email?: string;
+  website?: string;
+  social?: SocialLink[];
+  logoUrl?: string;
+  coverUrl?: string;
+}
+
+export interface ModerationResult {
+  // approved = auto-publish, rejected = auto-reject (spam),
+  // flagged = needs a human in the review queue.
+  decision: "approved" | "rejected" | "flagged";
+  spamProbability: number; // 0-1
+  confidence: number; // 0-1
+  reason: string;
+  model: string; // which classifier produced this (e.g. "heuristic", "claude-haiku-4-5")
+}
+
+// A submitted listing awaiting/holding a moderation outcome.
+export interface Submission extends ListingDraft {
+  id: string;
+  slug: string;
+  status: ModerationStatus;
+  moderation: ModerationResult;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Article {
   slug: string;
   title: string;

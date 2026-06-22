@@ -49,7 +49,7 @@ export async function ListingDetail({ listing }: { listing: Listing }) {
   const profilePanel = (
     <div className="space-y-6">
       <section className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="flex items-center gap-2 font-slab text-lg font-bold text-ink">
+        <h2 className="flex items-center gap-2 font-heading text-lg font-bold text-ink">
           <Icon d={ICON.list} className="h-5 w-5 text-brand" />
           Description
         </h2>
@@ -80,7 +80,7 @@ export async function ListingDetail({ listing }: { listing: Listing }) {
 
       {(listing.address || listing.email || listing.phone) && (
         <section className="rounded-lg border border-gray-200 bg-white p-5 text-sm shadow-sm">
-          <h2 className="font-slab font-bold text-ink">Get in touch</h2>
+          <h2 className="font-heading font-bold text-ink">Get in touch</h2>
           {listing.address && <p className="mt-2 text-body">{listing.address}</p>}
           {listing.email && (
             <p className="mt-1">
@@ -178,7 +178,7 @@ export async function ListingDetail({ listing }: { listing: Listing }) {
               />
             ) : null}
             <div>
-              <h1 className="font-slab text-3xl font-bold text-ink">
+              <h1 className="font-heading text-3xl font-bold text-ink">
                 {listing.title}
               </h1>
               {listing.tagline ? (
@@ -284,3 +284,4 @@ function ActionButton({
     </a>
   );
 }
+

@@ -28,7 +28,7 @@ export default async function ReviewPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <div className="flex items-center justify-between">
-        <h1 className="font-slab text-2xl font-bold text-ink">Review queue</h1>
+        <h1 className="font-heading text-2xl font-bold text-ink">Review queue</h1>
         <form action={logout}>
           <button className="text-sm text-muted hover:text-ink">Sign out</button>
         </form>
@@ -51,7 +51,7 @@ export default async function ReviewPage() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="font-slab font-bold text-ink">{s.title}</h2>
+                  <h2 className="font-heading font-bold text-ink">{s.title}</h2>
                   <p className="text-xs text-muted">
                     {[s.town, regionName(s.regionSlug)].filter(Boolean).join(", ")}
                   </p>
@@ -92,3 +92,4 @@ export default async function ReviewPage() {
     </div>
   );
 }
+

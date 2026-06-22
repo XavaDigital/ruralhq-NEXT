@@ -14,7 +14,7 @@ export default async function LoginPage({
   const { next } = await searchParams;
   return (
     <div className="mx-auto max-w-sm px-4 py-16">
-      <h1 className="font-slab text-2xl font-bold text-ink">Admin sign in</h1>
+      <h1 className="font-heading text-2xl font-bold text-ink">Admin sign in</h1>
       <p className="mt-1 text-sm text-muted">
         Restricted area — moderation review queue.
       </p>
@@ -22,3 +22,4 @@ export default async function LoginPage({
     </div>
   );
 }
+

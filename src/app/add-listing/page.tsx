@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function AddListingPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="font-slab text-2xl font-bold text-ink">
+      <h1 className="font-heading text-2xl font-bold text-ink">
         Add your free listing
       </h1>
       <p className="mt-1 text-sm text-muted">
@@ -27,3 +27,4 @@ export default async function AddListingPage() {
     </div>
   );
 }
+

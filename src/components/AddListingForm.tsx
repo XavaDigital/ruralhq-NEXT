@@ -180,7 +180,7 @@ function SubmittedMessage({
   if (result.status === "approved") {
     return (
       <div className="rounded-lg border border-brand/30 bg-brand/5 p-5">
-        <h2 className="font-slab text-lg font-bold text-ink">
+        <h2 className="font-heading text-lg font-bold text-ink">
           Your listing is live! 🎉
         </h2>
         <p className="mt-1 text-sm text-body">
@@ -198,7 +198,7 @@ function SubmittedMessage({
   if (result.status === "rejected") {
     return (
       <div className="rounded-lg border border-red-200 bg-red-50 p-5">
-        <h2 className="font-slab text-lg font-bold text-ink">
+        <h2 className="font-heading text-lg font-bold text-ink">
           We couldn&apos;t accept this listing
         </h2>
         <p className="mt-1 text-sm text-body">{result.reason}</p>
@@ -210,7 +210,7 @@ function SubmittedMessage({
   }
   return (
     <div className="rounded-lg border border-gray-200 bg-gray-50 p-5">
-      <h2 className="font-slab text-lg font-bold text-ink">
+      <h2 className="font-heading text-lg font-bold text-ink">
         Thanks — your listing is in review
       </h2>
       <p className="mt-1 text-sm text-body">
@@ -220,3 +220,4 @@ function SubmittedMessage({
     </div>
   );
 }
+

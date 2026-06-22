@@ -89,7 +89,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
 
         {/* Content */}
         <div className="p-4">
-          <h3 className="flex items-center gap-1 font-slab font-semibold text-ink group-hover:text-brand">
+          <h3 className="flex items-center gap-1 font-heading font-semibold text-ink group-hover:text-brand">
             <span className="line-clamp-1">{listing.title}</span>
             {listing.claimed ? (
               <Icon d={P.check} className="h-4 w-4 shrink-0 text-sky" />
@@ -137,3 +137,4 @@ export function ListingCard({ listing }: { listing: Listing }) {
     </Link>
   );
 }
+

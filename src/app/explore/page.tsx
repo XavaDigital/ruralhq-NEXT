@@ -84,7 +84,7 @@ export default async function ExplorePage({
         )}
 
         <section className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 px-6 py-8 text-center">
-          <h2 className="font-slab text-lg font-bold text-ink">
+          <h2 className="font-heading text-lg font-bold text-ink">
             Can&apos;t find what you&apos;re looking for?
           </h2>
           <p className="mt-1 text-sm text-body">
@@ -108,3 +108,4 @@ export default async function ExplorePage({
     </div>
   );
 }
+

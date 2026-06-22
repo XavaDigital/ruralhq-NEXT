@@ -28,7 +28,7 @@ export default async function NewsfeedPage({
       {/* Hero */}
       <section className="bg-ink text-white">
         <div className="container-rhq py-20 text-center">
-          <h1 className="font-slab text-3xl font-bold text-white sm:text-4xl">
+          <h1 className="font-heading text-3xl font-bold text-white sm:text-4xl">
             Your <span className="text-brand">RuralHQ</span> Newsfeed
           </h1>
           <div className="mx-auto mt-4 h-1 w-16 rounded bg-brand" />
@@ -82,3 +82,4 @@ export default async function NewsfeedPage({
     </div>
   );
 }
+

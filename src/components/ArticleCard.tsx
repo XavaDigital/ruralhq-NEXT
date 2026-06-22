@@ -34,15 +34,27 @@ export function ArticleCard({ article }: { article: Article }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-slab text-lg font-bold text-brand-dark group-hover:text-brand">
+        <h3 className="font-heading text-lg font-bold text-brand-dark group-hover:text-brand">
           {article.title}
         </h3>
         <p className="mt-2 line-clamp-3 text-sm text-body">{article.excerpt}</p>
         <span className="mt-3 text-sm font-semibold uppercase tracking-wide text-brand-dark">
           Read More »
         </span>
-        <div className="mt-4 flex items-center gap-2 border-t border-gray-100 pt-3 text-xs text-muted">
-          <span>{new Date(article.publishedAt).toLocaleDateString("en-NZ")}</span>
+        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3 text-xs text-muted">
+          {article.author ? (
+            <>
+              <span className="font-medium text-ink">{article.author}</span>
+              <span>·</span>
+            </>
+          ) : null}
+          <span>
+            {new Date(article.publishedAt).toLocaleDateString("en-NZ", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </span>
           <span>·</span>
           <span>No Comments</span>
         </div>
@@ -50,3 +62,4 @@ export function ArticleCard({ article }: { article: Article }) {
     </Link>
   );
 }
+

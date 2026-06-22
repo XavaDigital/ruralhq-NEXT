@@ -44,7 +44,7 @@ function Heading({
         {eyebrow}
       </p>
       <h2
-        className={`mt-2 font-slab text-3xl font-bold ${dark ? "text-white" : "text-ink"}`}
+        className={`mt-2 font-heading text-3xl font-bold ${dark ? "text-white" : "text-ink"}`}
       >
         {title}
       </h2>
@@ -75,7 +75,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="bg-ink text-white">
         <div className="container-rhq py-24 text-center">
-          <p className="font-slab text-4xl font-bold">
+          <p className="font-heading text-4xl font-bold">
             Rural<span className="text-brand">HQ</span>
           </p>
           <div className="mx-auto mt-4 h-1 w-16 rounded bg-brand" />
@@ -187,3 +187,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

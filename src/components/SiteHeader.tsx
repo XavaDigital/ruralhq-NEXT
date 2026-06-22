@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 
-// Dark header matching the live site: hexagon RuralHQ logo, an inline search,
-// the primary nav, "Sign in or Register" and an outlined "Add Listing". Collapses
-// to a hamburger menu below the 767px breakpoint.
+// Dark, full-width header matching the live site: the RuralHQ logo sits hard
+// left, "Add Listing" hard right, with an inline search and the primary nav
+// between. Collapses to a hamburger below lg.
+
+const LOGO = "https://ruralhq.co.nz/wp-content/uploads/2019/09/ruralhq-logo_white-small.png";
 
 const NAV = [
   { label: "Explore", href: "/explore" },
@@ -13,26 +15,6 @@ const NAV = [
   { label: "Read", href: "/newsfeed" },
   { label: "What is RuralHQ?", href: "/about" },
 ];
-
-function Logo() {
-  return (
-    <Link href="/" className="flex shrink-0 items-center gap-2">
-      <svg viewBox="0 0 40 44" className="h-9 w-8" aria-hidden>
-        <polygon points="20,1 38,11 38,33 20,43 2,33 2,11" fill="#69aa31" />
-        <text x="20" y="19" textAnchor="middle" fill="#fff" fontSize="7" fontWeight="700">
-          RURAL
-        </text>
-        <text x="20" y="31" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="800">
-          HQ
-        </text>
-      </svg>
-      <span className="font-slab text-xl font-bold tracking-tight">
-        <span className="text-white">Rural</span>
-        <span className="text-brand">HQ</span>
-      </span>
-    </Link>
-  );
-}
 
 function SearchBox({ className }: { className?: string }) {
   return (
@@ -60,8 +42,11 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 bg-ink text-white">
-      <div className="container-rhq flex h-16 items-center gap-6">
-        <Logo />
+      <div className="flex h-16 items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex shrink-0 items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={LOGO} alt="RuralHQ" className="h-9 w-auto" />
+        </Link>
         <SearchBox className="hidden w-56 md:block" />
 
         <nav className="ml-auto hidden items-center gap-6 lg:flex">
@@ -116,7 +101,7 @@ export function SiteHeader() {
 
       {open ? (
         <nav className="border-t border-white/10 bg-ink lg:hidden">
-          <div className="container-rhq flex flex-col gap-1 py-3">
+          <div className="flex flex-col gap-1 px-4 py-3 sm:px-6">
             <SearchBox className="mb-2" />
             {NAV.map((item) => (
               <Link

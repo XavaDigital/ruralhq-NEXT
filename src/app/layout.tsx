@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Roboto, Roboto_Slab } from "next/font/google";
+import { Montserrat, Roboto, Roboto_Slab } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
@@ -18,6 +18,13 @@ const robotoSlab = Roboto_Slab({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-roboto-slab",
+  display: "swap",
+});
+// Headings — the live site uses Montserrat.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -41,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${roboto.variable} ${robotoSlab.variable}`}
+      className={`h-full antialiased ${roboto.variable} ${robotoSlab.variable} ${montserrat.variable}`}
     >
       <body className="flex min-h-full flex-col bg-white text-body">
         <SiteHeader />

@@ -96,7 +96,7 @@ export function SiteFooter() {
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
               Get the latest
             </p>
-            <h2 className="font-slab text-2xl font-bold text-white">
+            <h2 className="font-heading text-2xl font-bold text-white">
               Special Offers &amp; Deals
             </h2>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
@@ -128,10 +128,13 @@ export function SiteFooter() {
       <div className="bg-ink text-gray-300">
         <div className="container-rhq grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <p className="font-slab text-lg font-bold text-white">
-              Rural<span className="text-brand">HQ</span>
-            </p>
-            <p className="mt-2 text-sm text-gray-400">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://ruralhq.co.nz/wp-content/uploads/2019/09/ruralhq-logo_white-small.png"
+              alt="RuralHQ"
+              className="h-9 w-auto"
+            />
+            <p className="mt-3 text-sm text-gray-400">
               RuralHQ is a comprehensive directory service for rural New Zealand.
             </p>
             <SocialRow className="mt-4" />
@@ -160,3 +163,4 @@ export function SiteFooter() {
     </footer>
   );
 }
+

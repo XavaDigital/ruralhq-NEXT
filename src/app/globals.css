@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
 /* Design tokens lifted from the live RuralHQ (My Listing / Elementor kit):
-   brand greens, near-black ink, body grey, and the Roboto / Roboto Slab pair.
-   Exposing them via @theme generates utilities like bg-brand, text-ink,
-   font-slab, etc. */
+   brand greens, near-black ink, body grey, and the real type pairing —
+   Montserrat for headings, Roboto for body. */
 @theme {
   --color-brand: #69aa31; /* secondary green (primary brand) */
   --color-brand-dark: #367c2b; /* accent / hover green */
@@ -13,19 +12,25 @@
   --color-muted: #7a7a7a;
 
   --font-sans: var(--font-roboto), "Roboto", system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), "Montserrat", system-ui, sans-serif;
   --font-slab: var(--font-roboto-slab), "Roboto Slab", Georgia, serif;
 }
 
-body {
-  font-family: var(--font-sans);
-  color: var(--color-body);
-}
-
-/* Headings use the brand ink + medium weight, matching the theme. */
-h1,
-h2,
-h3 {
-  color: var(--color-ink);
+/* Base defaults MUST live in @layer base so text-color / font utilities
+   (e.g. text-white, font-heading) override them. Unlayered rules would beat
+   layered utilities and was making every white heading render dark. */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-body);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    color: var(--color-ink);
+  }
 }
 
 /* Site container width matches the live ~1140px Elementor container. */

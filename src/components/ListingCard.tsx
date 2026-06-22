@@ -29,10 +29,18 @@ export function ListingCard({ listing }: { listing: Listing }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand/15 to-ink/10">
-            <span className="font-slab text-3xl font-bold text-brand/50">
-              {listing.title.slice(0, 1)}
-            </span>
+          <div className="flex h-full w-full items-center justify-center bg-gray-100">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.4"
+              className="h-12 w-12 text-brand/40"
+              aria-hidden
+            >
+              <path d="M12 21s7-7.75 7-13a7 7 0 1 0-14 0c0 5.25 7 13 7 13z" />
+              <circle cx="12" cy="9" r="2.5" />
+            </svg>
           </div>
         )}
         {listing.featured ? (

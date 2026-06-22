@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import { listSubmissions } from "@/lib/submissions";
 import { regionName } from "@/lib/data";
 import { approve, reject } from "./actions";
+import { logout } from "../login/actions";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Review queue", robots: { index: false } };
@@ -26,7 +27,12 @@ export default async function ReviewPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="font-slab text-2xl font-bold text-ink">Review queue</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-slab text-2xl font-bold text-ink">Review queue</h1>
+        <form action={logout}>
+          <button className="text-sm text-muted hover:text-ink">Sign out</button>
+        </form>
+      </div>
       <p className="mt-1 text-sm text-muted">
         {flagged.length} awaiting review · {approved.length} approved ·{" "}
         {rejected.length} rejected

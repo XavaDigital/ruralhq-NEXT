@@ -2,12 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { setSubmissionStatus } from "@/lib/submissions";
+import { requireAdmin } from "@/lib/auth-server";
 
-// Approve/reject a flagged submission. Implemented as server actions (not a
-// public API) so the mutation isn't exposed to the world; in production this
-// page sits behind admin auth. Revalidates the directory so an approval shows
-// up immediately.
+// Approve/reject a flagged submission. Server actions are globally invocable by
+// id, so each one re-checks admin auth (the page-level middleware gate isn't
+// enough on its own). Revalidates the directory so an approval shows up
+// immediately.
 async function decide(formData: FormData, status: "approved" | "rejected") {
+  await requireAdmin();
   const id = String(formData.get("id"));
   await setSubmissionStatus(id, status);
   revalidatePath("/admin/review");

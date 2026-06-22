@@ -57,3 +57,4 @@ supabase/seed.sql
 
 # build logs
 *.log
+public/_ref/

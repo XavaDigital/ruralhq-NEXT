@@ -27,7 +27,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
           <span className="rounded bg-brand/10 px-2 py-0.5 text-xs font-medium text-brand-dark">
             {LISTING_TYPE_LABEL[listing.type]}
           </span>
-          {listing.rating && listing.reviewCount ? (
+          {listing.rating && listing.rating <= 5 && listing.reviewCount ? (
             <span className="text-xs text-muted">
               <span className="text-brand">★</span> {listing.rating.toFixed(1)} (
               {listing.reviewCount})

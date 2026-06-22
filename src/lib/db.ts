@@ -107,6 +107,7 @@ export interface DbListingQuery {
   regionSlugs?: string[]; // region + descendant slugs (computed by caller)
   category?: string;
   search?: string;
+  order?: "featured" | "newest" | "rating";
   page?: number;
   perPage?: number;
 }
@@ -115,7 +116,7 @@ export async function dbGetListings(
   q: DbListingQuery,
 ): Promise<{ items: Listing[]; total: number }> {
   const s = sql!;
-  const { type, regionSlugs, category, search, page = 1, perPage = 24 } = q;
+  const { type, regionSlugs, category, search, order = "featured", page = 1, perPage = 24 } = q;
   const conds = [s`status = 'approved'`];
   if (type) conds.push(s`type = ${type}`);
   if (regionSlugs?.length) conds.push(s`region_slug = any(${regionSlugs})`);
@@ -123,11 +124,18 @@ export async function dbGetListings(
   if (search) conds.push(s`search @@ websearch_to_tsquery('english', ${search})`);
   const where = conds.reduce((a, c) => s`${a} and ${c}`);
 
+  const orderBy =
+    order === "newest"
+      ? s`created_at desc`
+      : order === "rating"
+        ? s`rating desc nulls last`
+        : s`featured desc, rating desc nulls last, review_count desc nulls last`;
+
   const [{ count }] = await s<{ count: number }[]>`
     select count(*)::int as count from listings where ${where}`;
   const rows = await s<Row[]>`
     select * from listings where ${where}
-    order by featured desc, rating desc nulls last, review_count desc nulls last
+    order by ${orderBy}
     limit ${perPage} offset ${(page - 1) * perPage}`;
   return { items: rows.map(toListing), total: count };
 }

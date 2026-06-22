@@ -1,16 +1,20 @@
-// Faceted directory search. Filters live in the URL query string so the page is
-// fully server-rendered for every filter combination — crawlable, shareable,
-// and AdSense-friendly. The ExploreFilters client component only updates the
-// URL; the server does the querying and rendering.
+// Faceted directory search — 3-column layout (filters sidebar · results · map),
+// matching the live explore page. Filters live in the URL query string so the
+// page is fully server-rendered, crawlable and shareable; the Google map is a
+// client component that activates when an API key is configured.
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
-import { getListings, getTopCategories, getTopRegions } from "@/lib/data";
+import {
+  getListings,
+  getTopCategories,
+  getTopRegions,
+  type ListingOrder,
+} from "@/lib/data";
 import type { ListingType } from "@/lib/types";
-import { ExploreFilters } from "@/components/ExploreFilters";
+import { ExploreSidebar } from "@/components/ExploreSidebar";
 import { ListingCard } from "@/components/ListingCard";
-import { AdSlot } from "@/components/AdSlot";
+import { ListingMap, type MapPoint } from "@/components/ListingMap";
 
 export const metadata: Metadata = {
   title: "Explore rural businesses & contractors",
@@ -23,6 +27,7 @@ type SearchParams = Promise<{
   region?: string;
   category?: string;
   q?: string;
+  order?: string;
   page?: string;
 }>;
 
@@ -37,48 +42,49 @@ export default async function ExplorePage({
     region: sp.region,
     category: sp.category,
     search: sp.q,
+    order: sp.order as ListingOrder | undefined,
     page: sp.page ? Number(sp.page) : 1,
   });
   const regions = getTopRegions();
   const categories = getTopCategories();
 
-  return (
-    <div>
-      {/* Search hero */}
-      <section className="bg-ink text-white">
-        <div className="container-rhq py-10">
-          <h1 className="font-slab text-2xl font-bold text-white sm:text-3xl">
-            What are you looking for?
-          </h1>
-          <p className="mt-1 text-sm text-gray-300">
-            Search {total.toLocaleString()} rural businesses and contractors.
-          </p>
-          <div className="mt-5">
-            <Suspense fallback={null}>
-              <ExploreFilters regions={regions} categories={categories} />
-            </Suspense>
-          </div>
-        </div>
-      </section>
+  const points: MapPoint[] = items
+    .filter((l) => typeof l.lat === "number" && typeof l.lng === "number")
+    .map((l) => ({ id: l.id, title: l.title, lat: l.lat!, lng: l.lng! }));
 
-      <div className="container-rhq py-8">
-        <AdSlot slot="explore-top" className="mb-6" />
+  return (
+    <div className="lg:grid lg:grid-cols-[280px_minmax(0,1fr)_38%]">
+      {/* Filters sidebar */}
+      <aside className="border-b border-gray-200 p-5 lg:border-b-0 lg:border-r">
+        <ExploreSidebar params={sp} regions={regions} categories={categories} />
+      </aside>
+
+      {/* Results */}
+      <div className="p-5">
+        <div className="flex items-center justify-between text-sm text-muted">
+          <span>
+            Showing <span className="font-semibold text-ink">{items.length}</span>{" "}
+            results out of{" "}
+            <span className="font-semibold text-ink">
+              {total.toLocaleString()}
+            </span>
+          </span>
+        </div>
 
         {items.length === 0 ? (
-          <p className="py-12 text-center text-muted">
+          <p className="py-16 text-center text-muted">
             There are no listings matching your search.
           </p>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {items.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
           </div>
         )}
 
-        {/* Can't find what you're looking for? */}
-        <section className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 px-6 py-10 text-center">
-          <h2 className="font-slab text-xl font-bold text-ink">
+        <section className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 px-6 py-8 text-center">
+          <h2 className="font-slab text-lg font-bold text-ink">
             Can&apos;t find what you&apos;re looking for?
           </h2>
           <p className="mt-1 text-sm text-body">
@@ -91,6 +97,13 @@ export default async function ExplorePage({
             Add a listing
           </Link>
         </section>
+      </div>
+
+      {/* Map */}
+      <div className="hidden lg:block">
+        <div className="sticky top-16 h-[calc(100vh-4rem)]">
+          <ListingMap points={points} />
+        </div>
       </div>
     </div>
   );

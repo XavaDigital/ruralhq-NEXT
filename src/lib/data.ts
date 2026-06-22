@@ -118,11 +118,14 @@ function regionWithDescendants(slug: string): Set<string> {
 // Listing query API
 // ---------------------------------------------------------------------------
 
+export type ListingOrder = "featured" | "newest" | "rating";
+
 export interface ListingQuery {
   type?: ListingType;
   region?: string; // region slug
   category?: string; // category slug
   search?: string;
+  order?: ListingOrder;
   page?: number;
   perPage?: number;
 }
@@ -131,12 +134,13 @@ export async function getListings(query: ListingQuery = {}): Promise<{
   items: Listing[];
   total: number;
 }> {
-  const { type, region, category, search, page = 1, perPage = 24 } = query;
+  const { type, region, category, search, order = "featured", page = 1, perPage = 24 } = query;
   if (usingDb) {
     return dbGetListings({
       type,
       category,
       search,
+      order,
       page,
       perPage,
       regionSlugs: region ? [...regionWithDescendants(region)] : undefined,
@@ -161,9 +165,27 @@ export async function getListings(query: ListingQuery = {}): Promise<{
     );
   }
 
+  items = sortListings(items, order);
   const total = items.length;
   const start = (page - 1) * perPage;
   return { items: items.slice(start, start + perPage), total };
+}
+
+function sortListings(items: Listing[], order: ListingOrder): Listing[] {
+  const copy = [...items];
+  if (order === "newest") {
+    copy.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  } else if (order === "rating") {
+    copy.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+  } else {
+    copy.sort(
+      (a, b) =>
+        Number(b.featured) - Number(a.featured) ||
+        (b.rating ?? 0) - (a.rating ?? 0) ||
+        (b.reviewCount ?? 0) - (a.reviewCount ?? 0),
+    );
+  }
+  return copy;
 }
 
 // Both businesses and contractors share the /businesses/{slug} URL base, so the

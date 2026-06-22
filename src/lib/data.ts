@@ -32,17 +32,63 @@ async function pool(): Promise<Listing[]> {
 const REGIONS = regionsJson as Term[];
 const CATEGORIES = categoriesJson as Term[];
 
-// Articles weren't migrated (the newsfeed lapsed in 2019). Seed a couple so the
-// "Read" section renders; real articles will come from the AI news pipeline.
+// The original 2019 newsfeed articles (the feed lapsed after these). New posts
+// will come from the AI news-synopsis pipeline.
 const ARTICLES: Article[] = [
   {
     slug: "improving-the-value-of-strong-wool",
-    title: "Improving the Value of Strong Wool",
+    title: "Improving the value of strong wool",
     excerpt:
-      "Strong wool prices have languished for years — here's what's changing.",
-    body: "<p>Industry initiatives are working to lift strong wool returns…</p>",
-    publishedAt: "2019-07-11T23:18:53.000Z",
-    updatedAt: "2019-07-11T23:18:53.000Z",
+      "The value of strong wool can be increased by breeding programmes that aim to improve selected traits. This article provides some information on 6 of them.",
+    body: "<p>The value of strong wool can be increased by breeding programmes that aim to improve selected traits…</p>",
+    category: "Farming",
+    author: "Jack Holloway",
+    publishedAt: "2019-07-12T00:00:00.000Z",
+    updatedAt: "2019-07-12T00:00:00.000Z",
+  },
+  {
+    slug: "ai-is-transforming-agriculture",
+    title: "How AI is Transforming Agriculture",
+    excerpt:
+      "Undeniably, agriculture and farming is being reshaped by artificial intelligence — from pasture sensors to flock monitoring.",
+    body: "<p>Undeniably, agriculture and farming is being reshaped by artificial intelligence…</p>",
+    category: "Farming",
+    author: "Jack Holloway",
+    publishedAt: "2019-07-08T00:00:00.000Z",
+    updatedAt: "2019-07-08T00:00:00.000Z",
+  },
+  {
+    slug: "alternatives-to-radiata-pine-in-new-zealand-forestry",
+    title: "Alternatives to Radiata pine in New Zealand Forestry",
+    excerpt:
+      "I sat down with Pete Gatehouse from the Central Canterbury Farm Forestry Group to talk about some of the less common tree species that have potential.",
+    body: "<p>I sat down with Pete Gatehouse from the Central Canterbury Farm Forestry Group…</p>",
+    category: "Forestry",
+    author: "Jack Holloway",
+    publishedAt: "2019-07-04T00:00:00.000Z",
+    updatedAt: "2019-07-04T00:00:00.000Z",
+  },
+  {
+    slug: "feeding-dairy-cows-during-the-transition-period",
+    title: "Feeding dairy cows during the transition period",
+    excerpt:
+      "Is more milk produced by improving feeding either before, or after, calving? I investigate the research to see if I can figure it out.",
+    body: "<p>Is more milk produced by improving feeding either before, or after, calving?…</p>",
+    category: "Farming",
+    author: "Jack Holloway",
+    publishedAt: "2019-07-03T00:00:00.000Z",
+    updatedAt: "2019-07-03T00:00:00.000Z",
+  },
+  {
+    slug: "how-many-stock-units-are-ewe-really-running",
+    title: "How many stock units are ewe really running?",
+    excerpt:
+      "It would be fair to assume that a stock unit is a thoroughly defined, easily applicable measurement. However, when it comes to sheep, there are notable discrepancies in its use.",
+    body: "<p>It would be fair to assume that a stock unit is a thoroughly defined, easily applicable measurement…</p>",
+    category: "Farming",
+    author: "Jack Holloway",
+    publishedAt: "2019-07-02T00:00:00.000Z",
+    updatedAt: "2019-07-02T00:00:00.000Z",
   },
 ];
 
@@ -232,10 +278,21 @@ export async function getRelatedListings(
 // Articles
 // ---------------------------------------------------------------------------
 
-export async function getArticles(): Promise<Article[]> {
-  return [...ARTICLES].sort((a, b) =>
-    b.publishedAt.localeCompare(a.publishedAt),
-  );
+export async function getArticles(query?: string): Promise<Article[]> {
+  let items = [...ARTICLES];
+  if (query) {
+    const q = query.toLowerCase();
+    items = items.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q),
+    );
+  }
+  return items.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+}
+
+export function getArticleCategories(): string[] {
+  return [...new Set(ARTICLES.map((a) => a.category).filter(Boolean))] as string[];
 }
 
 export async function getArticle(slug: string): Promise<Article | null> {

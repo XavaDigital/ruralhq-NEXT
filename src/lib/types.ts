@@ -121,6 +121,8 @@ export interface Article {
   title: string;
   excerpt: string;
   body: string;
+  category?: string;
+  author?: string;
   imageUrl?: string;
   publishedAt: string;
   updatedAt: string;

@@ -17,6 +17,22 @@ import type {
   ModerationStatus,
   Submission,
 } from "./types";
+import {
+  usingDb,
+  dbCreateSubmission,
+  dbSlugTaken,
+  dbListSubmissions,
+  dbSetStatus,
+} from "./db";
+
+function excerptOf(description: string): string {
+  const plain = description.replace(/<[^>]+>/g, "").trim();
+  return plain.length > 160 ? plain.slice(0, 159) + "…" : plain;
+}
+
+function asHtml(description: string): string {
+  return /<\w/.test(description) ? description : `<p>${description}</p>`;
+}
 
 const FILE = path.join(process.cwd(), ".data", "submissions.json");
 
@@ -48,6 +64,18 @@ export async function createSubmission(
   draft: ListingDraft,
   moderation: ModerationResult,
 ): Promise<Submission> {
+  if (usingDb) {
+    let slug = slugify(draft.title);
+    if (await dbSlugTaken(slug)) slug = `${slug}-${randomUUID().slice(0, 4)}`;
+    return dbCreateSubmission(
+      draft,
+      moderation,
+      randomUUID(),
+      slug,
+      excerptOf(draft.description),
+      asHtml(draft.description),
+    );
+  }
   const items = await readAll();
   let slug = slugify(draft.title);
   if (items.some((s) => s.slug === slug)) slug = `${slug}-${randomUUID().slice(0, 4)}`;
@@ -71,6 +99,7 @@ export async function createSubmission(
 export async function listSubmissions(
   status?: ModerationStatus,
 ): Promise<Submission[]> {
+  if (usingDb) return status ? dbListSubmissions(status) : [];
   const items = await readAll();
   const filtered = status ? items.filter((s) => s.status === status) : items;
   return filtered.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
@@ -80,6 +109,10 @@ export async function setSubmissionStatus(
   id: string,
   status: ModerationStatus,
 ): Promise<Submission | null> {
+  if (usingDb) {
+    await dbSetStatus(id, status);
+    return null;
+  }
   const items = await readAll();
   const sub = items.find((s) => s.id === id);
   if (!sub) return null;
@@ -89,9 +122,10 @@ export async function setSubmissionStatus(
   return sub;
 }
 
-// Approved submissions projected into the directory's Listing shape, so a
-// reviewer's approval makes the listing appear in /explore and at its URL.
+// Approved submissions projected into the directory's Listing shape (JSON mode
+// only — in DB mode they already live in the listings table as approved rows).
 export async function getApprovedSubmissionListings(): Promise<Listing[]> {
+  if (usingDb) return [];
   const items = await readAll();
   return items.filter((s) => s.status === "approved").map(submissionToListing);
 }

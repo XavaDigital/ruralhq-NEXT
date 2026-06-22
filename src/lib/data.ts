@@ -1,16 +1,24 @@
-// Data access layer.
+// Data access layer — the ONLY module routes/components import for content.
 //
-// Reads real seed data exported from the live WordPress DB by migration/etl.py
-// (a representative SAMPLE of listings + the full region/category taxonomies).
-// This is the ONLY module routes/components import for content. When the
-// Supabase migration lands, swap these function bodies for SQL queries — the
-// signatures stay the same.
+// Two backends behind one API: when DATABASE_URL is set, listing queries hit
+// Postgres (db.ts); otherwise they read the committed JSON seed + file-based
+// submission store. Regions/categories always come from the JSON taxonomies
+// (small, static — used for synchronous name lookups and facet options).
 
 import listingsJson from "@/data/listings.json";
 import regionsJson from "@/data/regions.json";
 import categoriesJson from "@/data/categories.json";
 import type { Article, Listing, ListingType, Term } from "./types";
 import { getApprovedSubmissionListings } from "./submissions";
+import {
+  usingDb,
+  dbGetListings,
+  dbGetListingBySlug,
+  dbGetAllListings,
+  dbGetAllListingSlugs,
+  dbGetContractorListings,
+  dbGetRelated,
+} from "./db";
 
 const SEED = listingsJson as unknown as Listing[];
 
@@ -86,6 +94,9 @@ export async function getContractorListings(
   query: { page?: number; perPage?: number } = {},
 ): Promise<{ items: Listing[]; total: number }> {
   const { page = 1, perPage = 36 } = query;
+  if (usingDb) {
+    return dbGetContractorListings([...CONTRACTOR_CATEGORIES], page, perPage);
+  }
   const items = (await pool()).filter((l) =>
     l.categories.some((c) => CONTRACTOR_CATEGORIES.has(c)),
   );
@@ -121,6 +132,17 @@ export async function getListings(query: ListingQuery = {}): Promise<{
   total: number;
 }> {
   const { type, region, category, search, page = 1, perPage = 24 } = query;
+  if (usingDb) {
+    return dbGetListings({
+      type,
+      category,
+      search,
+      page,
+      perPage,
+      regionSlugs: region ? [...regionWithDescendants(region)] : undefined,
+    });
+  }
+
   let items = await pool();
 
   if (type) items = items.filter((l) => l.type === type);
@@ -147,16 +169,19 @@ export async function getListings(query: ListingQuery = {}): Promise<{
 // Both businesses and contractors share the /businesses/{slug} URL base, so the
 // detail route resolves by slug alone.
 export async function getListingBySlug(slug: string): Promise<Listing | null> {
+  if (usingDb) return dbGetListingBySlug(slug);
   return (await pool()).find((l) => l.slug === slug) ?? null;
 }
 
 export async function getAllListingSlugs(): Promise<string[]> {
-  // Seed slugs only — used for static params. Approved submissions render
-  // on-demand (dynamicParams), so they don't need to be prebuilt.
+  // Used for static params. Approved submissions render on-demand
+  // (dynamicParams), so the seed/DB-approved slugs are enough to prebuild.
+  if (usingDb) return dbGetAllListingSlugs();
   return SEED.map((l) => l.slug);
 }
 
 export async function getAllListings(): Promise<Listing[]> {
+  if (usingDb) return dbGetAllListings();
   return pool();
 }
 
@@ -166,6 +191,7 @@ export async function getRelatedListings(
   listing: Listing,
   limit = 3,
 ): Promise<Listing[]> {
+  if (usingDb) return dbGetRelated(listing, limit);
   const cats = new Set(listing.categories);
   return SEED.filter((l) => l.id !== listing.id && l.type === listing.type)
     .map((l) => ({

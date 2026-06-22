@@ -24,10 +24,11 @@
 .DS_Store
 *.pem
 
-# database dumps (contain PII — never commit)
+# database dumps (contain PII — never commit). Migrations are source code, keep.
 *.sql
 *.sql.gz
 *.dump
+!supabase/migrations/*.sql
 
 # debug
 npm-debug.log*
@@ -35,8 +36,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (secrets) — but keep the example template
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -52,3 +54,6 @@ supabase/seed.sql
 
 # local submission store (dev; replaced by Supabase)
 .data/
+
+# build logs
+*.log

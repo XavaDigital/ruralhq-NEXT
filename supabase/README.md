@@ -32,9 +32,26 @@ Schema and seed for the RuralHQ database.
 3. Verify: `select type, count(*) from listings group by type;`
    (expect ~2,697 businesses, ~1,042 contractors).
 
-## The flip
+## Data layer (done)
 
-`src/lib/data.ts` currently reads the JSON sample in `src/data/`. Once the DB is
-loaded, its query functions get swapped to Supabase queries (same signatures, so
-nothing in the UI changes). Search uses the Postgres FTS `search` column to
-start; can move to Meilisearch/Typesense later without a schema change.
+The app talks to Postgres via a **portable connection string** (`DATABASE_URL`,
+`postgres` driver in `src/lib/db.ts`) — not the Supabase JS client — so the same
+code runs on Supabase, AWS RDS, or local Docker. When `DATABASE_URL` is unset it
+falls back to the JSON seed + file submission store.
+
+- **Local dev (fast):** `docker run -d --name rhq-pg -e POSTGRES_PASSWORD=postgres -p 55432:5432 postgres:16`,
+  load `migrations/0001_init.sql` then `seed.sql`, and set
+  `DATABASE_URL=postgres://postgres:postgres@localhost:55432/postgres`.
+- **Production:** point `DATABASE_URL` at the Supabase **transaction pooler**
+  (`…pooler.supabase.com:6543`, IPv4) or an RDS endpoint. SSL auto-applies for
+  non-local hosts.
+
+User submissions are stored in the `listings` table (non-approved status +
+`moderation` jsonb); approving flips status to `approved` and the listing
+appears in the directory. Search uses the FTS `search` column (swap for
+Meilisearch/Typesense later without a schema change).
+
+> ⚠️ **Region:** the current Supabase project is in `ap-northeast-1` (Tokyo),
+> which adds ~1–2s/query latency for NZ users. For production, recreate it in
+> `ap-southeast-2` (Sydney) — far closer — and rely on ISR caching for listing
+> pages so most requests serve static HTML with no per-request DB hit.

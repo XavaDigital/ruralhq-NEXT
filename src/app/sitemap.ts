@@ -11,7 +11,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
     { url: absoluteUrl("/"), changeFrequency: "daily", priority: 1 },
     { url: absoluteUrl("/explore"), changeFrequency: "daily", priority: 0.9 },
+    { url: absoluteUrl("/contractors"), changeFrequency: "daily", priority: 0.8 },
     { url: absoluteUrl("/newsfeed"), changeFrequency: "daily", priority: 0.8 },
+    { url: absoluteUrl("/add-listing"), changeFrequency: "monthly", priority: 0.7 },
+    { url: absoluteUrl("/about"), changeFrequency: "monthly", priority: 0.5 },
+    ...[
+      "/faq",
+      "/guidelines",
+      "/business-support",
+      "/contributors",
+      "/contact",
+      "/suggestion",
+      "/report",
+      "/privacy",
+      "/terms",
+    ].map((p) => ({
+      url: absoluteUrl(p),
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+    })),
   ];
 
   for (const listing of await getAllListings()) {

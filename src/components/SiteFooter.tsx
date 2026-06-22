@@ -1,9 +1,8 @@
 import Link from "next/link";
+import { NewsletterForm } from "./NewsletterForm";
 
 // Footer reproduced from the live RuralHQ: a green newsletter band, a dark
-// "follow us on social" bar, and a near-black 4-column footer. Links are mapped
-// to our routes; pages we haven't built yet (FAQ/About/Privacy/Terms/Contact)
-// point to "#" for now.
+// "follow us on social" bar, and a near-black 4-column footer.
 
 const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   [
@@ -19,27 +18,28 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
     {
       heading: "Community",
       links: [
+        { label: "FAQ", href: "/faq" },
         { label: "Suggest a Listing", href: "/add-listing" },
-        { label: "Make a Suggestion", href: "#" },
-        { label: "Report an Error", href: "#" },
-        { label: "Guidelines", href: "#" },
+        { label: "Make a Suggestion", href: "/suggestion" },
+        { label: "Report an Error", href: "/report" },
+        { label: "Guidelines", href: "/guidelines" },
       ],
     },
     {
       heading: "For Business",
       links: [
         { label: "Get on RuralHQ", href: "/add-listing" },
-        { label: "Business Support", href: "#" },
+        { label: "Business Support", href: "/business-support" },
       ],
     },
     {
       heading: "About",
       links: [
         { label: "About Us", href: "/about" },
-        { label: "Contributors", href: "#" },
-        { label: "Privacy Policy", href: "#" },
-        { label: "Terms & Conditions", href: "#" },
-        { label: "Contact Us", href: "#" },
+        { label: "Contributors", href: "/contributors" },
+        { label: "Privacy Policy", href: "/privacy" },
+        { label: "Terms & Conditions", href: "/terms" },
+        { label: "Contact Us", href: "/contact" },
       ],
     },
   ];
@@ -107,15 +107,10 @@ export function SiteFooter() {
               &amp; deals. Subscribe to be among the first to hear about them.
             </p>
           </div>
-          {/* Newsletter signup — wire to an email provider later. */}
-          <form action="#" className="shrink-0">
-            <button
-              type="submit"
-              className="rounded bg-ink px-6 py-3 text-sm font-semibold text-white hover:bg-black"
-            >
-              Send me the good stuff!
-            </button>
-          </form>
+          {/* Stored via /api/newsletter; swap for an email provider later. */}
+          <div className="shrink-0">
+            <NewsletterForm variant="dark" />
+          </div>
         </div>
       </section>
 
